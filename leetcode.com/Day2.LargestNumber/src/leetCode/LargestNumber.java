@@ -3,8 +3,8 @@ package leetCode;
 /*
  ==========================================================
  Author : Hyogi Jung(hyogij@gmail.com)
- Date : 2015.07.02
- Question Number : 7
+ Date : 2015.07.03
+ Question Number : 8
  Link : https://leetcode.com/problems/spiral-matrix/
  ==========================================================
  */
