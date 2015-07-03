@@ -22,8 +22,8 @@ public class SearchInRotatedSortedArray {
 	 */
 	public static void main(String[] args) {
 		int index = 0;
-		int[] nums = {1};
-		index = search(nums, 0);
+		int[] nums = {5, 1, 3};
+		index = search(nums, 3);
 		System.out.println("index = " + index);
 	}
 
@@ -31,40 +31,26 @@ public class SearchInRotatedSortedArray {
 		int left, mid, right;
 
 		left = 0;
-		right = nums.length;
+		right = nums.length-1;
 
-		while (left < right) {
+		while (left <= right) {
 			mid = left + (right - left) / 2;
-
+			
 			if (nums[mid] == target) {
 				return mid;
-			} else if (nums[left] < nums[mid]) {
-				// 왼쪽이 정렬된 경우
-				if (nums[left] < target && target < nums[mid]) {
-					right = mid - 1;
-				} else {
-					left = mid + 1;
-				}
-			} else if (nums[mid] < nums[right]) {
-				// 오른쪽이 정렬된 경우
-				if (nums[mid] < target && target < nums[right]) {
-					left = mid + 1;
-				} else {
-					right = mid - 1;
-				}
-			} else if (nums[mid] > nums[right] && nums[left] > nums[mid]) {
-				// 역으로 정렬된 경우
-				if (target < nums[mid]) {
-					right = mid - 1;
+			} else if (nums[left] <= nums[mid]) {
+				// If left side is ordered
+				if (nums[left] <= target && target < nums[mid]) {
+					right = mid;
 				} else {
 					left = mid + 1;
 				}
 			} else {
-				// 정렬된 경우
-				if (target < nums[mid]) {
+				// If right side is ordered
+				if (nums[mid] < target && target <= nums[right]) {
 					left = mid + 1;
 				} else {
-					right = mid - 1;
+					right = mid;
 				}
 			}
 		}
