@@ -39,6 +39,7 @@ public class LargestNumber {
 			number.append(nums[i]);
 		}
 
+		// Removes '0' character if string starts with '0'
 		while (number.charAt(0) == '0' && number.length() > 1) {
 			number.deleteCharAt(0);
 		}
