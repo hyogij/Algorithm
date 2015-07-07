@@ -4,8 +4,8 @@ package leetCode;
  ==========================================================
  Author : Hyogi Jung(hyogij@gmail.com)
  Date : 2015.07.07
- Question Number : 12
- Link : https://leetcode.com/problems/zigzag-conversion/
+ Question Number : 13
+ Link : https://leetcode.com/problems/minimum-size-subarray-sum/
  ==========================================================
  */
 public class MinSubArrayLen {
@@ -25,6 +25,7 @@ public class MinSubArrayLen {
 
 	// i) 뒤에서부터 하나씩 더한다 
 	// ii) 가장 뒤가 아닌 경우 그 전에 것을 포함한다 
+	// 2개가 될 지, 3개가 될지는 어떻게 알어? 계속 추가하면 되는거야? 
 	public static int minSubArrayLen(int s, int[] nums) {
 		int count = 0;
 		quickSort(nums, 0, nums.length - 1);
