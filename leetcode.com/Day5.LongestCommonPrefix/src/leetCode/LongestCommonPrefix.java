@@ -22,12 +22,11 @@ public class LongestCommonPrefix {
 		int minLength = Integer.MAX_VALUE;
 
 		// Base cases
-		if (strs.length == 0) {
+		if (strs.length == 0 || strs == null) {
 			return "";
-		} else if (strs.length == 1) {
-			return strs[0];
-		}
-
+		} 
+		
+		// Finds the minimum length in string array
 		for (String str : strs) {
 			int length = str.length();
 			if (length < minLength) {
