@@ -39,7 +39,7 @@ public class PlusOne {
 		// array to store result value.
 		if (carry == 1) {
 			newDigits = new int[digits.length + 1];
-			newDigits[0] = 1;
+			newDigits[0] = carry;
 			for (int i = 1; i < digits.length + 1; i++) {
 				newDigits[i] = digits[i - 1];
 			}
