@@ -3,9 +3,9 @@ package leetCode;
 /*
  ==========================================================
  Author : Hyogi Jung(hyogij@gmail.com)
- Date : 2015.07.14
- Question Number : 39
- Link : https://leetcode.com/problems/merge-sorted-array/
+ Date : 2015.07.15
+ Question Number : 40
+ Link : https://leetcode.com/problems/balanced-binary-tree/ 
  ==========================================================
  */
 public class IsBalanced {
