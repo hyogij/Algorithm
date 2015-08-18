@@ -1,6 +1,7 @@
 package leetCode;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /*
@@ -27,7 +28,7 @@ public class InvertBinaryTree {
 			 / \   / \
 			9   6 3   1
 	 */
-	
+
 	public static void main(String[] args) {
 		TreeNode tree = new TreeNode(4);
 		tree.left = new TreeNode(2);
@@ -36,35 +37,70 @@ public class InvertBinaryTree {
 		tree.left.right = new TreeNode(3);
 		tree.right.left = new TreeNode(6);
 		tree.right.right = new TreeNode(9);
-		
-		System.out.println("binaryTreePaths : " + binaryTreePaths(tree).toString());
-		tree = invertTree(tree);
-		System.out.println("binaryTreePaths : " + binaryTreePaths(tree).toString());
-	}
-	
-	public static TreeNode invertTree(TreeNode root) {
-		if(root == null) {
-			return null;
-		}
-		return invertTreeHelper(root);
+
+		System.out.println("binaryTreePaths1 : "
+				+ binaryTreePaths(tree).toString());
+		tree = invertTreeIterative(tree);
+		System.out.println("binaryTreePaths2 : "
+				+ binaryTreePaths(tree).toString());
 	}
 
-	public static TreeNode invertTreeHelper(TreeNode root) {
+	public static TreeNode invertTreeRecursive(TreeNode root) {
+		if (root == null) {
+			return null;
+		}
+		return invertTreeRecursiveHelper(root);
+	}
+
+	// Invert a binary tree through recursive method
+	public static TreeNode invertTreeRecursiveHelper(TreeNode root) {
 		TreeNode tmp = root.right;
 		root.right = root.left;
 		root.left = tmp;
-		
-		if(root.left != null) {
-			invertTreeHelper(root.left);
+
+		if (root.left != null) {
+			invertTreeRecursiveHelper(root.left);
 		}
-		
-		if(root.right != null) {
-			invertTreeHelper(root.right);
+
+		if (root.right != null) {
+			invertTreeRecursiveHelper(root.right);
+		}
+
+		return root;
+	}
+
+	public static TreeNode invertTreeIterative(TreeNode root) {
+		if (root == null) {
+			return null;
+		}
+		return invertTreeIterativeHelper(root);
+	}
+
+	// Invert a binary tree through iterative method
+	public static TreeNode invertTreeIterativeHelper(TreeNode root) {
+		List<TreeNode> list = new ArrayList<TreeNode>();
+		list.add(root);
+
+		// Use BFS traverse method to visit a binary tree using queue
+		while (list.isEmpty() != true) {
+			TreeNode head = list.remove(0);
+			
+			TreeNode tmp = head.right;
+			head.right = head.left;
+			head.left = tmp;
+
+			if (head.right != null) {
+				list.add(head.right);
+			}
+
+			if (head.left != null) {
+				list.add(head.left);
+			}
 		}
 		
 		return root;
 	}
-	
+
 	public static List<String> binaryTreePaths(TreeNode root) {
 		List<String> paths = new ArrayList<String>();
 
