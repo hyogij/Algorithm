@@ -5,7 +5,7 @@ package codility;
  Author : Hyogi Jung(hyogij@gmail.com)
  Date : 2015.09.07
  Lesson Number : 1
- Link : https://codility.com/c/run/demoM5NAVW-NGG
+ Link : https://codility.com/demo/take-sample-test/tape_equilibrium/
  ==========================================================
  */
 
@@ -68,12 +68,32 @@ public class TapeEquilibrium {
 	 * Elements of input arrays can be modified.
 	 */
 	public static void main(String[] args) {
+		int[] A = {3, 1, 2, 4, 3};
+		System.out.println("solution " + solution(A));
 	}
 	
+	// Use total summation of given integer array, after than move the index of
+	// array from 0 to n-1. Then compare summation of left part and right part.
 	public static int solution(int[] A) {
-        // write your code in Java SE 8
-		int result = 0;
+		if(A.length < 0) {
+			return 0;
+		}
 		
-		return result;
-    }
+		int sum = 0;
+		for (int i = 0; i < A.length; i++) {
+			sum += A[i];
+		}
+
+		int left = 0, right = sum;
+		int min = Integer.MAX_VALUE;
+		for (int i = 0; i < A.length; i++) {
+			left += A[i];
+			right -= A[i];
+			int abs = Math.abs((left - right));
+			if (abs < min) {
+				min = abs;
+			}
+		}
+		return min;
+	}
 }
