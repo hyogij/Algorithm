@@ -41,12 +41,16 @@ public class ReverseBetween {
 
 	public static ListNode reverseBetween(ListNode head, int m, int n) {
 		ListNode start = head, prev = start;
+		// Move the pointer to the mth position to reverse a linked list
 		for (int position = 1; position < m; position++) {
 			prev = start;
 			start = start.next;
 		}
 
+		// Reverse a linked list from m to n
 		ListNode subHead = reverseList(start, n - m);
+
+		// Reconnect the reversed list to original list
 		if (m == 1) {
 			head = subHead;
 		} else {
