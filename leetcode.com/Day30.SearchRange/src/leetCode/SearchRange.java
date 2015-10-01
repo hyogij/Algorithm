@@ -34,38 +34,34 @@ public class SearchRange {
 		// left most position when target value is duplicated.
 		int left = 0, right = nums.length - 1;
 		int middle = 0;
-		boolean isFound = false;
 		while (left <= right) {
 			middle = (right - left) / 2 + left;
 			if (nums[middle] == target) {
-				isFound = true;
+				// After then find the starting and ending position of a given
+				// target value.
+
+				// Find the left most position
+				start = middle;
+				for (int i = middle; i >= 0; i--) {
+					if (nums[i] != target) {
+						break;
+					}
+					start = i;
+				}
+
+				// Find the right most position
+				end = middle;
+				for (int i = middle; i < nums.length; i++) {
+					if (nums[i] != target) {
+						break;
+					}
+					end = i;
+				}
 				break;
 			} else if (nums[middle] > target) {
 				right = middle - 1;
 			} else {
 				left = middle + 1;
-			}
-		}
-
-		// After then find the starting and ending position of a given target
-		// value.
-		if (isFound == true) {
-			// Find the left most position
-			start = middle;
-			for (int i = middle; i >= 0; i--) {
-				if (nums[i] != target) {
-					break;
-				}
-				start = i;
-			}
-
-			// Find the right most position
-			end = middle;
-			for (int i = middle; i < nums.length; i++) {
-				if (nums[i] != target) {
-					break;
-				}
-				end = i ;
 			}
 		}
 
