@@ -16,8 +16,27 @@ public class TrailingZeroes {
 	 * Note: Your solution should be in logarithmic time complexity.
 	 */
 	public static void main(String[] args) {
-		int num = 20;
+		int num = 100;
+		System.out.println("trailingZeroes " + trailingZeroesLogScale(num));
 		System.out.println("trailingZeroes " + trailingZeroes(num));
+	}
+
+	public static int trailingZeroesLogScale(int n) {
+		if (n < 0)
+			return -1;
+
+		// Zero is made by multiplying of two and five. So we can expected
+		// result through the minimum number of twos and fives.
+		int twos = 0, fives = 0;
+		for (long i = 5; i <= n; i *= 5) {
+			fives += n / i;
+		}
+
+		for (long i = 2; i <= n; i *= 2) {
+			twos += n / i;
+		}
+
+		return Math.min(twos, fives);
 	}
 
 	public static int trailingZeroes(int n) {
@@ -25,11 +44,11 @@ public class TrailingZeroes {
 		// result through the number of twos and fives.
 		int twos = 0, fives = 0;
 		for (int i = 1; i <= n; i++) {
-			if (i % 2 == 0) {
-				twos += getNumberOfFactor(i, 2);
-			}
 			if (i % 5 == 0) {
 				fives += getNumberOfFactor(i, 5);
+			}
+			if (i % 2 == 0) {
+				twos += getNumberOfFactor(i, 2);
 			}
 		}
 
