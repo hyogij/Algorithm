@@ -6,8 +6,8 @@ import java.util.Arrays;
  ==========================================================
  Author : Hyogi Jung(hyogij@gmail.com)
  Date : 2015.10.02
- Question Number : 126
- Link : https://leetcode.com/problems/single-number-ii/
+ Question Number : 127
+ Link : https://leetcode.com/problems/maximum-subarray/
  ==========================================================
  */
 public class MaxSubArray {
