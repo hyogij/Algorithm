@@ -18,14 +18,15 @@ public class ClosestValue {
 	 * only one unique value in the BST that is closest to the target.
 	 */
 	public static void main(String[] args) {
-		TreeNode tree = new TreeNode(7);
-		tree.left = new TreeNode(5);
-		tree.right = new TreeNode(20);
-		tree.right.right = new TreeNode(22);
-		tree.right.left = new TreeNode(18);
-		tree.right.left.left = new TreeNode(16);
+		TreeNode tree = new TreeNode(20);
+		tree.left = new TreeNode(16);
+//		tree.left.left = new TreeNode(16);
+		// tree.right = new TreeNode(20);
+		// tree.right.right = new TreeNode(22);
+		// tree.right.left = new TreeNode(18);
+		// tree.right.left.left = new TreeNode(16);
 
-		System.out.println("closestValue : " + closestValue(tree, 17.5));
+		System.out.println("closestValue : " + closestValue(tree, 17.1));
 	}
 
 	public static int closestValue(TreeNode root, double target) {
@@ -43,18 +44,26 @@ public class ClosestValue {
 			return -1;
 		}
 
-		// Compare with parent value when current node hasn't children
-		if (root.left == null && root.right == null) {
-			if (Math.abs(parent.val - target) > Math.abs(root.val - target)) {
-				return root.val;
-			}
-			return parent.val;
-		}
-
 		if (root.val < target) {
-			return closetValueHelper(root, root.right, target);
+			if (root.right == null) {
+				// Compare with parent value when current node hasn't children
+				if (Math.abs(parent.val - target) > Math.abs(root.val - target)) {
+					return root.val;
+				}
+				return parent.val;
+			} else {
+				return closetValueHelper(root, root.right, target);
+			}
 		} else if (root.val > target) {
-			return closetValueHelper(root, root.left, target);
+			if (root.left == null) {
+				// Compare with parent value when current node hasn't children
+				if (Math.abs(parent.val - target) > Math.abs(root.val - target)) {
+					return root.val;
+				}
+				return parent.val;
+			} else {
+				return closetValueHelper(root, root.left, target);
+			}
 		} else {
 			return root.val;
 		}
