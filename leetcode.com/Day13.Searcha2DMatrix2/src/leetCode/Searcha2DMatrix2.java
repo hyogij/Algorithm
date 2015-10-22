@@ -20,11 +20,13 @@ public class Searcha2DMatrix2 {
 	 * 
 	 * Consider the following matrix:
 	 * 
-	 * [ [1, 4, 7, 11, 15], 
+	 * [ 
+	 * [1, 4, 7, 11, 15], 
 	 * [2, 5, 8, 12, 19], 
 	 * [3, 6, 9, 16, 22], 
-	 * [10, 13, 14, 17, 24], 
-	 * [18, 21, 23, 26, 30] ] 
+	 * [5, 7, 10, 17, 24], 
+	 * [18, 21, 23, 26, 30] 
+	 * ] 
 	 * 
 	 * Given target = 5, return true. 
 	 * Given target = 20, return false.
@@ -37,64 +39,41 @@ public class Searcha2DMatrix2 {
 		                 	  {10, 13, 14, 17, 24}, 
 		                 	  {18, 21, 23, 26, 30}};
 		System.out.println("searchMatrix " + searchMatrix(matrix, 20));
+		System.out.println("searchMatrix " + searchMatrix(matrix, 5));
+		System.out.println("searchMatrix " + searchMatrix(matrix, 12));
 	}
 
 	public static boolean searchMatrix(int[][] matrix, int target) {
-		// binary search를 이용한다 
-		int start = 0, end = matrix[0].length;
-		int row = 0, col = 0;
-		
-		while(start <= end) {
-			int index = binarySearchinRow(matrix, target, start, end, row);
-			
-			if(matrix[row][index] == target) {
-				return true;
-			}
-			
-			col = index;
-			end = index;
-			
-			index = binarySearchinCol(matrix, target, start, end, col);
-			if(matrix[index][col] == target) {
-				return true;
-			}
-			row = index;			
-			start = index;
+		if (matrix == null || matrix.length == 0) {
+			return false;
 		}
-		return false;
+
+		return searchHelper(matrix, target, 0, 0, matrix.length - 1,
+				matrix[0].length - 1);
 	}
 	
-	// Finds a target in row
-	public static int binarySearchinRow(int[][] matrix, int target, int start,
-			int end, int row) {
-		while (start < end) {
-			int mid = (start + end) / 2;
-			if (matrix[row][mid] == target) {
-				return mid;
-			} else if (matrix[row][mid] > target) {
-				end = mid - 1;
-			} else {
-				start = mid + 1;
-			}
+	public static boolean searchHelper(int[][] matrix, int target, int leftX,
+			int leftY, int rightX, int rightY) {
+
+		int xMid = (leftX + rightX) / 2;
+		int yMid = (leftY + rightY) / 2;
+
+		if (leftX == rightX && leftY == rightY) {
+			return matrix[xMid][yMid] == target;
+		}
+		if (leftX > rightX || leftY > rightY) {
+			return false;
 		}
 
-		return end;
-	}
-
-	// Finds a target in column
-	public static int binarySearchinCol(int[][] matrix, int target, int start,
-			int end, int col) {
-		while (start < end) {
-			int mid = (start + end) / 2;
-			if (matrix[mid][col] == target) {
-				return mid;
-			} else if (matrix[mid][col] > target) {
-				end = mid - 1;
-			} else {
-				start = mid + 1;
-			}
+		if (matrix[xMid][yMid] == target) {
+			return true;
 		}
 
-		return end;
+		int nextXMid = xMid + 1;
+		int nextYMid = yMid + 1;
+
+		return searchHelper(matrix, target, leftX, leftY, xMid, yMid)
+				|| searchHelper(matrix, target, leftX, nextYMid, xMid, rightY)
+				|| searchHelper(matrix, target, nextXMid, leftY, rightX, rightY);
 	}
 }
