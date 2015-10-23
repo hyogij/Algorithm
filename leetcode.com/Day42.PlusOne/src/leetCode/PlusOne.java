@@ -3,8 +3,8 @@ package leetCode;
 /*
  ==========================================================
  Author : Hyogi Jung(hyogij@gmail.com)
- Date : 2015.07.02
- Question Number : 2
+ Date : 2015.10.23
+ Question Number : 152
  Link : https://leetcode.com/problems/plus-one/
  ==========================================================
  */
