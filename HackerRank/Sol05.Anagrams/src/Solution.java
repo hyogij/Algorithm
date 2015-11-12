@@ -20,9 +20,8 @@ public class Solution {
 		TreeMap<String, ArrayList<String>> orderAnagrams = new TreeMap<String, ArrayList<String>>();
 		ArrayList<String> list = null;
 
-		int numberOfString = 8;
-		// Given a list of unknown length
-		for (int k = 0; k < numberOfString; k++) {
+		// Run until user type ctrl + d
+		while (scanner.hasNextLine()) {
 			String str = scanner.nextLine();
 			// Replace spaces to empty string and make characters array
 			char[] word = str.replaceAll("[\\s]", "").toCharArray();
@@ -62,8 +61,7 @@ public class Solution {
 		}
 
 		// Print the TreeMap contents
-		for (Entry<String, ArrayList<String>> entry : orderAnagrams.entrySet()) {
-			String key = entry.getKey();
+		for (String key : orderAnagrams.keySet()) {
 			list = orderAnagrams.get(key);
 			for (int j = 0; j < list.size(); j++) {
 				if (j != 0) {
