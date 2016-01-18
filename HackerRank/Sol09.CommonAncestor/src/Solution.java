@@ -13,7 +13,8 @@ public class Solution {
 	}
 
 	static void OutputCommonManager(int count, Scanner in) {
-		HashMap<String, Node> nodeMap = new HashMap<String, Node>();
+		// Save all nodes in binary tree with <key, node> pairs
+		HashMap<String, Node> binaryTreeMap = new HashMap<String, Node>();
 
 		int num = 0;
 		String employee1 = null, employee2 = null;
@@ -28,44 +29,49 @@ public class Solution {
 			} else {
 				String[] name = line.split("\\s+");
 				Node node = null;
-				if (nodeMap.containsKey(name[0]) == true) {
-					node = (Node) nodeMap.get(name[0]);
+				if (binaryTreeMap.containsKey(name[0]) == true) {
+					node = (Node) binaryTreeMap.get(name[0]);
 					node = insertChild(node, name[1]);
 				} else {
-					node = makeNewNode(name[0], name[1]);
+					node = makeNode(name[0], name[1]);
 				}
 
 				// Insert parent node into nodeMap
-				nodeMap.put(name[0], node);
+				binaryTreeMap.put(name[0], node);
+
 				// Insert child node into nodeMap
 				if (node.left.data.equals(name[1])) {
-					nodeMap.put(name[1], node.left);
+					binaryTreeMap.put(name[1], node.left);
 				} else {
-					nodeMap.put(name[1], node.right);
+					binaryTreeMap.put(name[1], node.right);
 				}
 			}
 			num++;
 		}
 
 		// Find root node, its tree node count equals the number of all nodes
-		for (Node node : nodeMap.values()) {
-			int current = getCount(node);
+		for (Node node : binaryTreeMap.values()) {
+			int current = getTreeSize(node);
 			if (current == count) {
 				root = node;
 				break;
 			}
 		}
 
+		// Find the lowest common ancestor in binary tree
 		Node lowestCommonManager = lowestCommonAncestor(root,
-				(Node) nodeMap.get(employee1), (Node) nodeMap.get(employee2));
+				(Node) binaryTreeMap.get(employee1),
+				(Node) binaryTreeMap.get(employee2));
 		System.out.println(lowestCommonManager.data);
 	}
 
 	public static Node root = null;
 
-	public static Node makeNewNode(String parent, String child) {
+	public static Node makeNode(String parent, String child) {
 		Node node = new Node(parent);
 		Node childNode = new Node(child);
+
+		// Assign the child node to current's left node, when left child is null
 		if (node.left == null) {
 			node.left = childNode;
 		} else {
@@ -84,17 +90,18 @@ public class Solution {
 		return parentNode;
 	}
 
-	public static int getCount(Node node) {
+	public static int getTreeSize(Node node) {
 		Node right = node.right;
 		Node left = node.left;
 		int count = 1;
 		if (right != null)
-			count += getCount(right);
+			count += getTreeSize(right);
 		if (left != null)
-			count += getCount(left);
+			count += getTreeSize(left);
 		return count;
 	}
 
+	// Print the binary tree via BFS
 	public static void display(Node root) {
 		if (root == null) {
 			return;
@@ -116,6 +123,7 @@ public class Solution {
 		System.out.println();
 	}
 
+	// Find the lowest common ancestor in binary tree
 	public static Node lowestCommonAncestor(Node root, Node p, Node q) {
 		if (root == null || root == p || root == q) {
 			return root;
