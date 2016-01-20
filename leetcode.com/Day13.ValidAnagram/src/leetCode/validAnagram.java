@@ -22,6 +22,29 @@ public class validAnagram {
 
 	public static void main(String[] args) {
 		System.out.println("isAnagram " + isAnagram("anagram", "nagaram"));
+		System.out.println("isAnagram " + isAnagramNew("anagram", "nagaramd"));
+	}
+
+	// character array를 이용한다
+	public static boolean isAnagramNew(String s, String t) {
+		char[] array = new char[26];
+
+		for (int i = 0; i < s.length(); i++) {
+			char c = s.charAt(i);
+			array[c - 'a']++;
+		}
+
+		for (int i = 0; i < t.length(); i++) {
+			char c = t.charAt(i);
+			array[c - 'a']--;
+		}
+
+		for (int i = 0; i < 26; i++) {
+			if (array[i] != 0) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	// Validates input strings is an anagram
@@ -33,7 +56,7 @@ public class validAnagram {
 			int index = (int) (s.charAt(i) - 'a'); // index of alphabet
 			array[index]++;
 		}
-		
+
 		for (int i = 0; i < t.length(); i++) {
 			int index = (int) (t.charAt(i) - 'a'); // index of alphabet
 			array[index]--;
