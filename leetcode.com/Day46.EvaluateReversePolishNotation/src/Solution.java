@@ -23,6 +23,13 @@ public class Solution {
 		System.out.println("evalRPN " + evalRPN(tokens1));
 		String[] tokens2 = {"4", "13", "5", "/", "+"};
 		System.out.println("evalRPN " + evalRPN(tokens2));
+		
+		// calculate("2 3 +") # => 5 
+		// calculate("12 2 /") #=> 6 
+		// calculate("48 4 6 * /") # => 2 
+		System.out.println("evalRPNwithString " + evalRPNwithString("2 3 +"));
+		System.out.println("evalRPNwithString " + evalRPNwithString("12 2 /"));
+		System.out.println("evalRPNwithString " + evalRPNwithString("48 4 6 * /"));
 	}
 
 	// Store operands using stack data structure
@@ -31,6 +38,37 @@ public class Solution {
 	// Repeat above process, until the end of the tokens
 	public static int evalRPN(String[] tokens) {
 		Stack<Integer> stack = new Stack<Integer>();
+		for (String token : tokens) {
+			if (token.equals("+") || token.equals("-") || token.equals("*")
+					|| token.equals("/")) {
+				int operand2 = stack.pop();
+				int operand1 = stack.pop();
+				int result = 0;
+				switch (token.charAt(0)) {
+					case '+' :
+						result = operand1 + operand2;
+						break;
+					case '-' :
+						result = operand1 - operand2;
+						break;
+					case '*' :
+						result = operand1 * operand2;
+						break;
+					case '/' :
+						result = operand1 / operand2;
+						break;
+				}
+				stack.push(result);
+			} else {
+				stack.push(Integer.parseInt(token));
+			}
+		}
+		return stack.pop();
+	}
+
+	public static int evalRPNwithString(String expression) {
+		Stack<Integer> stack = new Stack<Integer>();
+		String[] tokens = expression.split("\\s+");
 		for (String token : tokens) {
 			if (token.equals("+") || token.equals("-") || token.equals("*")
 					|| token.equals("/")) {
