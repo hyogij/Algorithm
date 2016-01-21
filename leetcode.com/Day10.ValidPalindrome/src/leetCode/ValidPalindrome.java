@@ -1,6 +1,5 @@
 package leetCode;
 
-
 /*
  ==========================================================
  Author : Hyogi Jung(hyogij@gmail.com)
@@ -25,11 +24,58 @@ public class ValidPalindrome {
 	 */
 	public static void main(String[] args) {
 		System.out.println("isPalindrome " + isPalindrome("1a2"));
+		System.out.println("isPalindromePractice "
+				+ isPalindromePractice("1a2"));
 		System.out.println("isPalindrome " + isPalindrome(",.a"));
+		System.out.println("isPalindromePractice "
+				+ isPalindromePractice(",.a"));
 		System.out.println("isPalindrome "
 				+ isPalindrome("A man, a plan, a canal: Panama"));
+		System.out.println("isPalindromePractice "
+				+ isPalindromePractice("A man, a plan, a canal: Panama"));
 		System.out.println("isPalindrome " + isPalindrome("race a car"));
+		System.out.println("isPalindromePractice "
+				+ isPalindromePractice("race a car"));
 		System.out.println("isPalindrome " + isPalindrome(" "));
+		System.out.println("isPalindromePractice " + isPalindromePractice(" "));
+	}
+
+	public static boolean isPalindromePractice(String s) {
+		// I will use two pointer, one pointer points the start of string.
+		// Another pointer points the end of string. Compares two pointer's
+		// equality, if two characters are not equal, then return false. If they
+		// are equal, moves two pointer. One pointer moves right side, another
+		// pointer moves left side. Repeats above process until two pointer meet
+		// each others.
+		// myString.matches("[A-Za-z0-9]+")
+		char leftChar = 0, rightChar = 0;
+		int left = 0, right = s.length() - 1;
+		while (left <= right) {
+			while (left <= s.length() - 1) {
+				leftChar = Character.toLowerCase(s.charAt(left++));
+				if (isAlphaNumeric(leftChar)) {
+					break;
+				}
+			}
+
+			while (right >= 0) {
+				rightChar = Character.toLowerCase(s.charAt(right--));
+				if (isAlphaNumeric(rightChar)) {
+					break;
+				}
+			}
+
+			if (leftChar != rightChar) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	public static boolean isAlphaNumeric(char c) {
+		String str = String.valueOf(c);
+		return str.matches("[A-Za-z0-9]+");
 	}
 
 	public static boolean isPalindrome(String s) {
