@@ -26,9 +26,9 @@ public class ValidPalindrome {
 		System.out.println("isPalindrome " + isPalindrome("1a2"));
 		System.out.println("isPalindromePractice "
 				+ isPalindromePractice("1a2"));
-		System.out.println("isPalindrome " + isPalindrome(",.a"));
+		System.out.println("isPalindrome " + isPalindrome(",."));
 		System.out.println("isPalindromePractice "
-				+ isPalindromePractice(",.a"));
+				+ isPalindromePractice(",."));
 		System.out.println("isPalindrome "
 				+ isPalindrome("A man, a plan, a canal: Panama"));
 		System.out.println("isPalindromePractice "
@@ -55,6 +55,8 @@ public class ValidPalindrome {
 				leftChar = Character.toLowerCase(s.charAt(left++));
 				if (isAlphaNumeric(leftChar)) {
 					break;
+				} else {
+					leftChar = 0;
 				}
 			}
 
@@ -62,9 +64,10 @@ public class ValidPalindrome {
 				rightChar = Character.toLowerCase(s.charAt(right--));
 				if (isAlphaNumeric(rightChar)) {
 					break;
+				} else {
+					rightChar = 0;
 				}
 			}
-
 			if (leftChar != rightChar) {
 				return false;
 			}
