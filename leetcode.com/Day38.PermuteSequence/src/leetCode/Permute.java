@@ -3,6 +3,8 @@ package leetCode;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.sun.xml.internal.ws.util.StringUtils;
+
 /*
  ==========================================================
  Author : Hyogi Jung(hyogij@gmail.com)
@@ -25,13 +27,12 @@ public class Permute {
 	 * Note: Given n will be between 1 and 9 inclusive.
 	 */
 	public static void main(String[] args) {
-		System.out.println("getPermutation " + getPermutation(3, 3));
+		System.out.println("getPermutation " + getPermutation(9, 54494));
 	}
 
 	public static String getPermutation(int n, int k) {
-		String kSequence = null;
 		if (n == 0) {
-			return kSequence;
+			return null;
 		}
 
 		int[] candidates = new int[n];
@@ -40,10 +41,13 @@ public class Permute {
 		}
 
 		List<List<Integer>> permutes = permute(candidates);
-		System.out.println(permutes.toString());
 
-		kSequence = permutes.get(k - 1).toString();
-		return kSequence;
+		StringBuffer kSequence = new StringBuffer();
+		List<Integer> list = permutes.get(k - 1);
+		for (int i = 0; i < list.size(); i++) {
+			kSequence.append(list.get(i));
+		}
+		return kSequence.toString();
 	}
 
 	public static List<List<Integer>> permute(int[] candidates) {
