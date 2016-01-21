@@ -15,13 +15,36 @@ public class Palindrome {
 	 */
 	public static void main(String[] args) {
 
-		System.out.println("isPalindrome " + isPalindrome(-2147447412));
-		System.out.println("reverseInt " + reverseInt(-2147447412));
+		System.out.println("isPalindrome " + isPalindromePractice(2147447412));
+		System.out.println("isPalindrome " + isPalindromePractice(12344321));
+		System.out.println("isPalindrome " + isPalindromePractice(123454321));
+		System.out.println("isPalindrome " + isPalindromePractice(123457321));
+		System.out.println("reverseInt " + reverseIntPractice(2147447412));
+	}
+
+	public static boolean isPalindromePractice(int x) {
+		// Questions. If the number is negative value, then return false? Am I
+		// right?
+		if (x < 0) {
+			return false;
+		}
+
+		return x == reverseIntPractice(x);
+	}
+
+	public static int reverseIntPractice(int x) {
+		int number = 0;
+		while (x != 0) {
+			number *= 10;
+			number += (x % 10);
+			x /= 10;
+		}
+		return number;
 	}
 
 	// Reverse integer and compare two values
 	public static boolean isPalindrome(int x) {
-		if(x < 0 ) {
+		if (x < 0) {
 			return false;
 		}
 		return x == reverseInt(x);
