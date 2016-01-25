@@ -7,6 +7,7 @@ import java.util.HashMap;
  Date : 2016.01.25
  Question Number : 03
  Link : http://www.geeksforgeeks.org/longest-prefix-matching-a-trie-based-solution-in-java/
+ http://www.geeksforgeeks.org/find-all-shortest-unique-prefixes-to-represent-each-word-in-a-given-list/
  ==========================================================
  */
 
@@ -29,6 +30,11 @@ public class Solution {
 	 * child < Empty >
 	 */
 	public static void main(String[] args) {
+//		testCase1();
+		testCase2();
+	}
+	
+	private static void testCase1() {
 		Trie dict = new Trie();        
         dict.insert("are");
         dict.insert("area");
@@ -63,6 +69,26 @@ public class Solution {
         input = "xyz";
         System.out.print(input + ":   ");
         System.out.println(dict.getMatchingPrefix(input));  
+        
+        StringBuffer sb = new StringBuffer();
+        dict.findPrefixesUtil(sb);
+	}
+	
+	private static void testCase2() {
+		Trie dict = new Trie();        
+        dict.insert("zebra");
+        dict.insert("dog");
+        dict.insert("duck");
+        dict.insert("dove");
+        
+        String input = "dov";
+        System.out.print(input + ":   ");
+        System.out.println(dict.getMatchingPrefix(input));  
+        
+//        dict.printTrie();
+        
+        StringBuffer sb = new StringBuffer();
+        dict.findPrefixesUtil(sb);
 	}
 	
 	// Implements the actual Trie
@@ -141,6 +167,38 @@ public class Solution {
 			}
 		}
 		
+		// This function prints unique prefix for every word stored
+		// in Trie. Prefixes one by one are stored in prefix[].
+		// 'ind' is current index of prefix[]
+		public void findPrefixesUtil(StringBuffer prefix) {
+			if(root == null) {
+				return;
+			}
+			
+			System.out.println("findPrefixesUtil : ");
+			findPrefixesUtilHelper(root, prefix);
+		}
+		
+		public void findPrefixesUtilHelper(TrieNode root, StringBuffer prefix) {
+		    // Corner case
+		    if (root == null)
+		       return;
+		 
+		    // Base case
+		    if (root.getChildren().size() <= 1) {
+		       System.out.println(prefix.toString());
+		       return;
+		    }
+		 
+		    HashMap<Character, TrieNode> child = root.getChildren();
+		    for(Character ch : child.keySet()) {
+		           StringBuffer newPrefix = new StringBuffer(prefix);
+		           newPrefix.append(ch);
+		           findPrefixesUtilHelper(child.get(ch), newPrefix);
+		     }
+		}
+		 
+		
 		// We can print trie with lever order using queue like graph
 		public void printTrie() {
 			if (root == null) {
@@ -156,8 +214,9 @@ public class Solution {
 				System.out.println(height + " : Empty");
 				return;
 			}
-			System.out.println(height + " : " + crawl.value);
 
+			System.out.println(height + " : " + crawl.value);
+			
 			HashMap<Character, TrieNode> child = crawl.getChildren();
 			for (Character key : child.keySet()) {
 				printTrieHelper(child.get(key), height + 1);
