@@ -81,7 +81,7 @@ public class Solution {
         dict.insert("duck");
         dict.insert("dove");
         
-        String input = "dov";
+        String input = "dovev";
         System.out.print(input + ":   ");
         System.out.println(dict.getMatchingPrefix(input));  
         
