@@ -13,18 +13,27 @@ public class Solution {
 	public static void main(String[] args) {
 		System.out.println("minDistance : " + minDistance("abc", "dec"));
 		System.out.println("minDistance : " + minDistance("sitten", "sitti"));
-		System.out.println("isOneEditDistance : "
-				+ isOneEditDistance("sitten", "sitti"));
-		System.out.println("isOneEditDistance : "
-				+ isOneEditDistance("sitten", "sitte"));
-		System.out.println("isOneEditDistance : "
-				+ isOneEditDistance("sitten", "sitted"));
-		System.out.println("isOneEditDistance : "
-				+ isOneEditDistance("siten", "sitten"));
-		System.out.println("isOneEditDistance : "
-				+ isOneEditDistance("siten", "sitken"));
-		System.out.println("isOneEditDistance : "
-				+ isOneEditDistance("siten", "sikken"));
+		System.out.println("minDistance : " + minDistance("", "sitti"));
+
+		System.out.println("minDistnaceRecursive : "
+				+ minDistnaceRecursive("abc", "dec"));
+		System.out.println("minDistnaceRecursive : "
+				+ minDistnaceRecursive("sitten", "sitti"));
+		System.out.println("minDistnaceRecursive : "
+				+ minDistnaceRecursive("", "sitti"));
+
+		// System.out.println("isOneEditDistance : "
+		// + isOneEditDistance("sitten", "sitti"));
+		// System.out.println("isOneEditDistance : "
+		// + isOneEditDistance("sitten", "sitte"));
+		// System.out.println("isOneEditDistance : "
+		// + isOneEditDistance("sitten", "sitted"));
+		// System.out.println("isOneEditDistance : "
+		// + isOneEditDistance("siten", "sitten"));
+		// System.out.println("isOneEditDistance : "
+		// + isOneEditDistance("siten", "sitken"));
+		// System.out.println("isOneEditDistance : "
+		// + isOneEditDistance("siten", "sikken"));
 	}
 
 	// Given two strings S and T, determine if they are both one edit distance
@@ -81,6 +90,51 @@ public class Solution {
 		return true;
 	}
 
+	public static int minDistnaceRecursive(String word1, String word2) {
+		// Error handling
+		if (word1 == null && word2 == null) {
+			return 0;
+		}
+		if (word1 == null || word1.length() == 0) {
+			return word2.length();
+		}
+		if (word2 == null || word2.length() == 0) {
+			return word1.length();
+		}
+
+		return minDistnaceRecursiveHelper(word1, word2, 0, 0);
+	}
+
+	// Time complexity is O(n!)
+	public static int minDistnaceRecursiveHelper(String word1, String word2,
+			int index1, int index2) {
+		if (index1 == word1.length()) {
+			return word2.length() - index1;
+		}
+
+		if (index2 == word2.length()) {
+			return word1.length() - index2;
+		}
+
+		char c1 = word1.charAt(index1);
+		char c2 = word2.charAt(index2);
+
+		if (c1 == c2) {
+			return minDistnaceRecursiveHelper(word1, word2, index1 + 1,
+					index2 + 1);
+		} else {
+			// Remove a character into word1
+			int delete = minDistnaceRecursiveHelper(word1, word2, index1 + 1,
+					index2);
+			// Add a character into word2
+			int insert = minDistnaceRecursiveHelper(word1, word2, index1,
+					index2 + 1);
+			int replace = minDistnaceRecursiveHelper(word1, word2, index1 + 1,
+					index2 + 1);
+			return 1 + Math.min(delete, Math.min(insert, replace));
+		}
+	}
+
 	public static int minDistance(String word1, String word2) {
 		int len1 = word1.length();
 		int len2 = word2.length();
@@ -88,6 +142,7 @@ public class Solution {
 		// len1+1, len2+1, because finally return dp[len1][len2]
 		int[][] dp = new int[len1 + 1][len2 + 1];
 
+		// Why? 
 		for (int i = 0; i <= len1; i++) {
 			dp[i][0] = i;
 		}
