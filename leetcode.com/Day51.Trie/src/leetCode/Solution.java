@@ -1,7 +1,7 @@
 package leetCode;
 
 import java.util.HashMap;
-import java.util.Map;
+import java.util.HashSet;
 
 /*
  ==========================================================
@@ -25,7 +25,9 @@ public class Solution {
 		// Your Trie object will be instantiated and called as such:
 		Trie trie = new Trie();
 		trie.insert("key");
+		trie.insert("ke");
 		System.out.println(trie.search("key"));
+		System.out.println(trie.search("ke"));
 		System.out.println(trie.search("kei"));
 		System.out.println(trie.startsWith("ke"));
 		System.out.println(trie.startsWith("k"));
@@ -33,15 +35,17 @@ public class Solution {
 	}
 
 	public static class TrieNode {
-		char c;
-		HashMap<Character, TrieNode> children = new HashMap<Character, TrieNode>();
-		boolean isLeaf;
-
+		public char data;
+		public boolean isLeaf = false;
+		public HashMap<Character, TrieNode> children = null;
+		// Initialize your data structure here.
 		public TrieNode() {
+			children = new HashMap<Character, TrieNode>();
 		}
 
-		public TrieNode(char c) {
-			this.c = c;
+		public TrieNode(char data) {
+			this.data = data;
+			children = new HashMap<Character, TrieNode>();
 		}
 	}
 
@@ -54,60 +58,58 @@ public class Solution {
 
 		// Inserts a word into the trie.
 		public void insert(String word) {
-			HashMap<Character, TrieNode> children = root.children;
-
+			HashMap<Character, TrieNode> children = null;
+			TrieNode node = root;
 			for (int i = 0; i < word.length(); i++) {
 				char c = word.charAt(i);
-
-				TrieNode t;
+				children = node.children;
 				if (children.containsKey(c)) {
-					t = children.get(c);
+					node = children.get(c);
 				} else {
-					t = new TrieNode(c);
-					children.put(c, t);
+					node = new TrieNode(c);
+					children.put(c, node);
 				}
 
-				children = t.children;
-
-				// set leaf node
-				if (i == word.length() - 1)
-					t.isLeaf = true;
+				if (i == word.length() - 1) {
+					node.isLeaf = true;
+				}
 			}
 		}
 
 		// Returns if the word is in the trie.
 		public boolean search(String word) {
-			TrieNode t = searchNode(word);
-
-			if (t != null && t.isLeaf)
+			TrieNode node = searchNode(word);
+			if (node != null && node.isLeaf == true) {
 				return true;
-			else
+			} else {
 				return false;
+			}
 		}
 
 		// Returns if there is any word in the trie
 		// that starts with the given prefix.
 		public boolean startsWith(String prefix) {
-			if (searchNode(prefix) == null)
-				return false;
-			else
+			TrieNode node = searchNode(prefix);
+			if (node != null) {
 				return true;
+			} else {
+				return false;
+			}
 		}
 
-		public TrieNode searchNode(String str) {
-			Map<Character, TrieNode> children = root.children;
-			TrieNode t = null;
-			for (int i = 0; i < str.length(); i++) {
-				char c = str.charAt(i);
+		public TrieNode searchNode(String word) {
+			HashMap<Character, TrieNode> children = null;
+			TrieNode node = root;
+			for (int i = 0; i < word.length(); i++) {
+				char c = word.charAt(i);
+				children = node.children;
 				if (children.containsKey(c)) {
-					t = children.get(c);
-					children = t.children;
+					node = children.get(c);
 				} else {
 					return null;
 				}
 			}
-
-			return t;
+			return node;
 		}
 	}
 }
