@@ -19,70 +19,18 @@ public class Solution {
 	 * Example: arr: [x,y,z], str: xyyzyzyx result: zyx
 	 */
 	public static void main(String[] args) {
-		String[] arr = {"x", "y", "z", "y"};
-		String target1 = "xyyzyzyx";
+		String[] arr = {"x", "y", "z", "z"};
+		String input1 = "xyyzyzyyxxxxyzz";
 
 		System.out.println("getSmallestSubstring "
-				+ getSmallestSubstring(arr, target1));
+				+ getSmallestSubstring(arr, input1));
+
+		String target = "xyzz";
+		String input2 = "xyyzyzyyxxxxyzz";
 		System.out.println("getSmallestSubstringAdvanced "
-				+ getSmallestSubstringAdvanced(arr, target1));
-
-		String str = "xyz";
-		String target2 = "xyyzyzyx";
-		System.out.println("minWindow " + minWindow(str, target2));
-	}
-
-	private static String getSmallestSubstringAdvanced(String[] arr, String str) {
-		String result = "";
-
-		if (arr.length == 0 || str == null || str.length() == 0) {
-			return result;
-		}
-
-		int[] targets = new int[26];
-		int[] values = new int[26];
-		for (int i = 0; i < arr.length; i++) {
-			targets[arr[i].charAt(0) - 'a']++;
-		}
-
-		int min = Integer.MAX_VALUE;
-		int left = 0, right = 0;
-		for (; right < str.length(); right++) {
-			int index = str.charAt(right) - 'a';
-			values[index]++;
-
-			if (targets[index] == 0) {
-				continue;
-			}
-
-			if (targets[index] < values[index]) {
-				for (; left <= right;) {
-					// Move the sliding window from left to right
-					values[str.charAt(left++) - 'a']--;
-					if (targets[index] == values[index]) {
-						break;
-					}
-				}
-			}
-
-			int length = right - left + 1;
-			// Check equality of two arrays
-			if (isEqual(targets, values) && length < min) {
-				min = length;
-				result = str.substring(left, right + 1);
-			}
-		}
-
-		return result;
-	}
-
-	private static boolean isEqual(int[] targets, int[] values) {
-		for (int i = 0; i < targets.length; i++) {
-			if (targets[i] != 0 && targets[i] != values[i]) {
-				return false;
-			}
-		}
-		return true;
+				+ getSmallestSubstringAdvanced(input2, target));
+		System.out.println("getSmallestSubstringTest "
+				+ getSmallestSubstringTest(input2, target));
 	}
 
 	// Use the hashmap to find smallest substring but this algorithm's time
@@ -144,12 +92,13 @@ public class Solution {
 		}
 	}
 
-	public static String minWindow(String S, String T) {
+	public static String getSmallestSubstringAdvanced(String input,
+			String target) {
 		int[] needToFind = new int[256];
 		int[] hasFound = new int[256];
 
-		for (int i = 0; i < T.length(); ++i) {
-			needToFind[T.charAt(i)]++;
+		for (int i = 0; i < target.length(); ++i) {
+			needToFind[target.charAt(i)]++;
 		}
 
 		int count = 0;
@@ -157,32 +106,84 @@ public class Solution {
 		int start = 0, end = 0;
 		String window = "";
 
-		for (; end < S.length(); end++) {
-			if (needToFind[S.charAt(end)] == 0)
+		for (; end < input.length(); end++) {
+			char c = input.charAt(end);
+			if (needToFind[c] == 0)
 				continue;
-			char c = S.charAt(end);
-			hasFound[c]++;
 
+			hasFound[c]++;
 			if (hasFound[c] <= needToFind[c]) {
 				count++;
 			}
 
-			if (count == T.length()) {
-				while (needToFind[S.charAt(start)] == 0
-						|| hasFound[S.charAt(start)] > needToFind[S
+			if (count == target.length()) {
+				while (needToFind[input.charAt(start)] == 0
+						|| hasFound[input.charAt(start)] > needToFind[input
 								.charAt(start)]) {
-					if (hasFound[S.charAt(start)] > needToFind[S.charAt(start)])
-						hasFound[S.charAt(start)]--;
+					if (hasFound[input.charAt(start)] > needToFind[input
+							.charAt(start)]) {
+						hasFound[input.charAt(start)]--;
+					}
+
 					start++;
 				}
 
 				if (end - start + 1 < minWindowSize) {
 					minWindowSize = end - start + 1;
-					window = S.substring(start, end + 1);
+					window = input.substring(start, end + 1);
 				}
 			}
 		}
 
 		return window;
+	}
+
+	public static String getSmallestSubstringTest(String input, String target) {
+		int[] found = new int[256];
+		int[] needed = new int[256];
+
+		for (int i = 0; i < target.length(); i++) {
+			needed[target.charAt(i)]++;
+		}
+
+		int count = 0;
+		int start = 0, end = 0;
+		int minLength = Integer.MAX_VALUE;
+		String substring = "";
+		for (; end < input.length(); end++) {
+			char c = input.charAt(end);
+			if (needed[c] == 0) {
+				continue;
+			}
+
+			found[c]++;
+			if (found[c] <= needed[c]) {
+				count++;
+			}
+			System.out.println("count " + count);
+
+			if (count == target.length()) {
+				c = input.charAt(start);
+				// Increase the starting point if it includes characters that is
+				// a useless
+				while (needed[c] == 0 || found[c] > needed[c]) {
+					if (found[c] > needed[c]) {
+						found[c]--;
+					}
+					start++;
+					c = input.charAt(start);
+				}
+
+				int currentLength = end - start + 1;
+				if (currentLength < minLength) {
+					minLength = currentLength;
+					substring = input.substring(start, end + 1);
+					System.out.println("substring " + substring);
+				}
+
+			}
+		}
+
+		return substring;
 	}
 }
