@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.List;
 
 /*
  ==========================================================
@@ -99,9 +98,6 @@ public class Solution {
 		}
 	}
 	
-	// 다른 방법은 없는가? Iterative한 방법은 없는가?
-	// Path도 출력해야 한다면? 
-
 	public static void printGraph(TreeNode root) {
 		if (root != null) {
 			System.out.println(root.val);
