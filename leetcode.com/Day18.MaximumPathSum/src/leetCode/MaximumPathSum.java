@@ -1,7 +1,5 @@
 package leetCode;
 
-import java.util.ArrayList;
-import java.util.List;
 
 /*
  ==========================================================
@@ -24,37 +22,36 @@ public class MaximumPathSum {
 	 *  Return 6.
 	 */
 	public static void main(String[] args) {
-		TreeNode tree = new TreeNode(1);
-		tree.left = new TreeNode(2);
-		tree.right = new TreeNode(-13);
+		TreeNode tree = new TreeNode(11);
+		tree.left = new TreeNode(-2);
+		tree.right = new TreeNode(7);
+		tree.left.left = new TreeNode(10);
+		tree.left.right = new TreeNode(4);
 
 		printGraph(tree);
 		System.out.println("maxPathSum : " + maxPathSum(tree));
 	}
 
-	static int max = Integer.MIN_VALUE;
-
+	// 1) Recursively solve this problem
+	// 2) Get largest left sum and right sum
+	// 2) Compare to the stored maximum
+	static int maxValue = Integer.MIN_VALUE;
 	public static int maxPathSum(TreeNode root) {
-		helper(root);
-		return max;
-	}
-
-	// Helper returns the max branch plus current node's value
-	private static int helper(TreeNode root) {
-		if (root == null)
-			return 0;
-
-		int left = Math.max(helper(root.left), 0);
-		int right = Math.max(helper(root.right), 0);
-
-		max = Math.max(max, root.val + left + right);
-
-		return root.val + Math.max(left, right);
+		maxPathDown(root);
+		return maxValue;
 	}
 	
-	// DFS 를 이용한다
+	public static int maxPathDown(TreeNode node) {
+		if(node == null)
+			return 0;
+		int left = Math.max(0, maxPathDown(node.left));
+		int right = Math.max(0, maxPathDown(node.left));
+		maxValue = Math.max(maxValue, left + right + node.val);
+		return Math.max(left, right) + node.val;
+	}
+
 	public static void printGraph(TreeNode root) {
-		if(root != null) {
+		if (root != null) {
 			System.out.println(root.val);
 			printGraph(root.left);
 			printGraph(root.right);
