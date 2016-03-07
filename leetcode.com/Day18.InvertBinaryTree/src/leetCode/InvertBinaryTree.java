@@ -1,8 +1,9 @@
 package leetCode;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 /*
 ==========================================================
@@ -40,18 +41,55 @@ public class InvertBinaryTree {
 
 		System.out.println("binaryTreePaths1 : "
 				+ binaryTreePaths(tree).toString());
-		tree = invertTreeIterative(tree);
+		tree = invertTreeIterativeNew(tree);
 		System.out.println("binaryTreePaths2 : "
 				+ binaryTreePaths(tree).toString());
 	}
-
-	public static TreeNode invertTreeRecursive(TreeNode root) {
-		if (root == null) {
+	
+	public static TreeNode invertTree(TreeNode root) {
+		if(root == null) 
 			return null;
-		}
-		return invertTreeRecursiveHelper(root);
+		return invertTreeHelper(root);
 	}
+	
+	// Iterative method to invert a binary tree
+	public static TreeNode invertTreeIterativeNew(TreeNode root) {
+		if (root == null)
+			return null;
 
+		// Using a queue to invert a binary tree
+		Queue<TreeNode> queue = new LinkedList<TreeNode>();
+		queue.add(root);
+
+		while (queue.isEmpty() != true) {
+			TreeNode node = queue.poll();
+
+			// Invert child nodes
+			TreeNode tmp = node.left;
+			node.left = node.right;
+			node.right = tmp;
+
+			if (node.left != null)
+				queue.add(node.left);
+			if (node.right != null)
+				queue.add(node.right);
+		}
+
+		return root;
+	}
+	
+	// Invert a binary tree through recursive method
+	public static TreeNode invertTreeHelper(TreeNode node) {
+		if(node == null) 
+			return null;
+		
+		TreeNode tmp = node.left;
+		node.left = invertTreeHelper(node.right);
+		node.right = invertTreeHelper(tmp);
+		
+		return node;
+	}
+	
 	// Invert a binary tree through recursive method
 	public static TreeNode invertTreeRecursiveHelper(TreeNode root) {
 		TreeNode tmp = root.right;
