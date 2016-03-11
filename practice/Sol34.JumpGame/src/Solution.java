@@ -27,22 +27,12 @@ public class Solution {
 	}
 
 	public static boolean canJump(int[] nums) {
-		if (nums == null || nums.length == 0)
-			return false;
-
-		return canJumpHelper(nums, 0, nums[0]);
-	}
-
-	public static boolean canJumpHelper(int[] nums, int current, int jump) {
-		if(current + jump >= nums.length - 1) 
-			return true;
-		if(jump == 0 && current != nums.length - 1)
-			return false;
-		
-		boolean can = false;
-		for(int i = current; i < current + jump; i++) {
-			can |= canJumpHelper(nums, i, nums[i]);
+		int reachable = 0;
+		for (int i = 0; i < nums.length; ++i) {
+			if (i > reachable)
+				return false;
+			reachable = Math.max(reachable, i + nums[i]);
 		}
-		return can;
+		return true;
 	}
 }
