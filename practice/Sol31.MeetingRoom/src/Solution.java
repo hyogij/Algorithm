@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -33,6 +34,8 @@ public class Solution {
 	public static boolean canAttendMeetings(List<Interval> intervals) {
 		if (intervals == null || intervals.size() == 0)
 			return false;
+
+		Collections.sort(intervals, new IntervalComparator());
 
 		Interval prev = intervals.get(0);
 		for (int i = 1; i < intervals.size(); i++) {
