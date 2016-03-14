@@ -22,6 +22,7 @@ public class Solution {
 	public static void main(String[] args) {
 		int[] nums1 = {2, 3, 1, 1, 4};
 		System.out.println("canJump " + canJump(nums1));
+		System.out.println("minJumpRecursive " + minJumpRecursive(nums1, 0));
 	}
 
 	// Time complexity is O(n^2). This solution exceed time limitation.
@@ -42,5 +43,29 @@ public class Solution {
 		}
 
 		return jump[nums.length - 1];
+	}
+
+	// Returns minimum number of jumps to reach arr[h] from arr[l]
+	// http://www.geeksforgeeks.org/minimum-number-of-jumps-to-reach-end-of-a-given-array/
+	public static int minJumpRecursive(int arr[], int start) {
+		// Base case: when source and destination are same
+		if (start == arr.length - 1)
+			return 0;
+
+		// When nothing is reachable from the given source
+		if (arr[start] == 0)
+			return Integer.MAX_VALUE;
+
+		// Traverse through all the points reachable from arr[l]. Recursively
+		// get the minimum number of jumps needed to reach arr[h] from these
+		// reachable points.
+		int min = Integer.MAX_VALUE;
+		for (int i = start + 1; i <= arr.length - 1 && i <= start + arr[start]; i++) {
+			int jumps = minJumpRecursive(arr, i);
+			if (jumps != Integer.MAX_VALUE && jumps + 1 < min)
+				min = jumps + 1;
+		}
+
+		return min;
 	}
 }
