@@ -25,6 +25,8 @@ public class Solution {
 
 		List<List<Integer>> combinations = combine(4, 2);
 		System.out.println(combinations.toString());
+
+		System.out.println("findSubsets " + findSubsets(9, 9, 2));
 	}
 
 	// https://leetcode.com/problems/combinations/
@@ -61,12 +63,35 @@ public class Solution {
 				if (j < input[i - 1]) {
 					T[i][j] = T[i - 1][j]; // check the above value
 				} else {
-					// check the above value and target value - current value 
-					T[i][j] = T[i - 1][j] || T[i - 1][j - input[i - 1]]; 
+					// check the above value and target value - current value
+					T[i][j] = T[i - 1][j] || T[i - 1][j - input[i - 1]];
 				}
 			}
 		}
 
 		return T[input.length][total];
+	}
+
+	// Find the subsets that makes the target sum within certain number of elements
+	private static List<List<Integer>> findSubsets(int sum, int length, int num) {
+		List<List<Integer>> subsets = new ArrayList<List<Integer>>();
+		List<Integer> list = new ArrayList<Integer>();
+		findSubsetsHelper(sum, 0, length, num, subsets, list);
+		return subsets;
+	}
+
+	private static void findSubsetsHelper(int sum, int left, int right,
+			int num, List<List<Integer>> subsets, List<Integer> list) {
+		// Base case
+		if (sum == 0 && num == 0) {
+			subsets.add(list);
+			return;
+		}
+		for (int i = left; i < right; i++) {
+			List<Integer> newList = new ArrayList<Integer>(list);
+			newList.add(i);
+			findSubsetsHelper(sum - i, i + 1, right, num - 1, subsets, newList);
+		}
+		return;
 	}
 }
