@@ -12,28 +12,18 @@ https://segmentfault.com/a/1190000003906621
 public class Solution {
 	public static void main(String[] args) {
 		System.out.println("minDistance : " + minDistance("abc", "dec"));
-		System.out.println("minDistance : " + minDistance("sitten", "sitti"));
+		System.out.println("minDistance : " + minDistance("kiten", "sit"));
+		System.out.println("minDistance : " + minDistance("kitten", "sittia"));
 		System.out.println("minDistance : " + minDistance("", "sitti"));
 
 		System.out.println("minDistnaceRecursive : "
 				+ minDistnaceRecursive("abc", "dec"));
 		System.out.println("minDistnaceRecursive : "
-				+ minDistnaceRecursive("sitten", "sitti"));
+				+ minDistnaceRecursive("kiten", "sit"));
+		System.out.println("minDistnaceRecursive : "
+				+ minDistnaceRecursive("kitten", "sittia"));
 		System.out.println("minDistnaceRecursive : "
 				+ minDistnaceRecursive("", "sitti"));
-
-		// System.out.println("isOneEditDistance : "
-		// + isOneEditDistance("sitten", "sitti"));
-		// System.out.println("isOneEditDistance : "
-		// + isOneEditDistance("sitten", "sitte"));
-		// System.out.println("isOneEditDistance : "
-		// + isOneEditDistance("sitten", "sitted"));
-		// System.out.println("isOneEditDistance : "
-		// + isOneEditDistance("siten", "sitten"));
-		// System.out.println("isOneEditDistance : "
-		// + isOneEditDistance("siten", "sitken"));
-		// System.out.println("isOneEditDistance : "
-		// + isOneEditDistance("siten", "sikken"));
 	}
 
 	// Given two strings S and T, determine if they are both one edit distance
@@ -129,9 +119,10 @@ public class Solution {
 			// Add a character into word2
 			int insert = minDistnaceRecursiveHelper(word1, word2, index1,
 					index2 + 1);
+			// Replace characters from word1 and word2
 			int replace = minDistnaceRecursiveHelper(word1, word2, index1 + 1,
 					index2 + 1);
-			return 1 + Math.min(delete, Math.min(insert, replace));
+			return Math.min(delete, Math.min(insert, replace)) + 1;
 		}
 	}
 
@@ -142,11 +133,12 @@ public class Solution {
 		// len1+1, len2+1, because finally return dp[len1][len2]
 		int[][] dp = new int[len1 + 1][len2 + 1];
 
-		// Why? 
+		// The edit distance between an empty string and the prefixes of word1
 		for (int i = 0; i <= len1; i++) {
 			dp[i][0] = i;
 		}
 
+		// The edit distance between an empty string and the prefixes of word2
 		for (int j = 0; j <= len2; j++) {
 			dp[0][j] = j;
 		}
@@ -162,12 +154,12 @@ public class Solution {
 					// Update dp value for +1 length
 					dp[i + 1][j + 1] = dp[i][j];
 				} else {
-					int replace = dp[i][j] + 1;
-					int insert = dp[i][j + 1] + 1;
-					int delete = dp[i + 1][j] + 1;
+					int replace = dp[i][j];
+					int insert = dp[i][j + 1];
+					int delete = dp[i + 1][j];
 
 					dp[i + 1][j + 1] = Math.min(Math.min(replace, insert),
-							delete);
+							delete) + 1;
 				}
 			}
 		}
