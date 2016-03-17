@@ -6,7 +6,7 @@ import java.util.Set;
 /*
  ==========================================================
  Author : Hyogi Jung(hyogij@gmail.com)
- Date : 2016.03.16
+ Date : 2016.03.17
  Problem : http://www.geeksforgeeks.org/number-of-triangles-in-a-undirected-graph/
  https://www.careercup.com/question?id=5988741646647296
  ==========================================================
@@ -17,7 +17,13 @@ public class Solution {
 	 * can have. For example below graph have 2 triangles in it.
 	 * 
 	 * Given a undirected graph with corresponding edges. Find the number of
-	 * possible triangles? Example: 0 1 2 1 0 2 4 1 Answer: 1
+	 * possible triangles? 
+	 * Example: 
+	 * 0 1 
+	 * 2 1 
+	 * 0 2 
+	 * 4 1 
+	 * Answer: 1
 	 */
 	public static void main(String[] args) {
 		int[][] edges = {{0, 1}, {2, 1}, {0, 2}, {4, 1}, {4, 2}};
