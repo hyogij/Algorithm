@@ -1,5 +1,3 @@
-## Prepare Coding Interview
-
 1. 정렬되지 않은 integer 배열에서 k번째로 큰 수 찾기 : kth largest element in an array  
 문제 : <https://leetcode.com/problems/kth-largest-element-in-an-array/>  
 풀이 : <https://github.com/hyogij/CodingInterview/blob/master/practice/Sol09.kthElement/src/Solution.java>  
