@@ -1,4 +1,3 @@
-
 /*
  ==========================================================
  Author : Hyogi Jung(hyogij@gmail.com)
@@ -24,24 +23,26 @@ public class Solution {
 	public static int minPathSum(int[][] grid) {
 		if (grid == null || grid.length == 0)
 			return -1;
+		int col = grid[0].length;
+		int row = grid.length;
 
 		// Initialize the values on first row and col
-		for (int i = 1; i < grid[0].length; i++) {
+		for (int i = 1; i < col; i++) {
 			grid[0][i] += grid[0][i - 1];
 		}
 
-		for (int i = 1; i < grid.length; i++) {
+		for (int i = 1; i < row; i++) {
 			grid[i][0] += grid[i - 1][0];
 		}
 
 		// Find the minimum sum on the path
-		for (int i = 1; i < grid.length; i++) {
-			for (int j = 1; j < grid[i].length; j++) {
+		for (int i = 1; i < row; i++) {
+			for (int j = 1; j < col; j++) {
 				grid[i][j] += Math.min(grid[i - 1][j], grid[i][j - 1]);
 			}
 		}
 
-		return grid[grid.length - 1][grid[0].length - 1];
+		return grid[col - 1][row - 1];
 	}
 
 	public static void printMatrix(int[][] grid) {
