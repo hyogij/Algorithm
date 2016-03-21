@@ -37,11 +37,39 @@ public class LevelOrder {
 		root.right = new TreeNode(20);
 		root.right.left = new TreeNode(15);
 		root.right.right = new TreeNode(7);
+		root.right.right.right = new TreeNode(10);
 		System.out.println("levelOrder " + levelOrder(root).toString());
 	}
 
 	// Level order traversal using queue
 	public static List<List<Integer>> levelOrder(TreeNode root) {
+		List<List<Integer>> list = new ArrayList<List<Integer>>();
+		if (root == null) {
+			return list;
+		}
+
+		Queue<TreeNode> queue = new LinkedList<TreeNode>();
+		queue.add(root);
+		while (queue.isEmpty() == false) {
+			List<Integer> current = new ArrayList<Integer>();
+			
+			// Get the number of nodes in current depth
+			int size = queue.size();
+			for (int i = 0; i < size; i++) {
+				TreeNode node = queue.poll();
+				current.add(node.val);
+				if (node.left != null)
+					queue.add(node.left);
+				if (node.right != null)
+					queue.add(node.right);
+			}
+			list.add(current);
+		}
+
+		return list;
+	}
+	
+	public static List<List<Integer>> levelOrderMySolution(TreeNode root) {
 		List<List<Integer>> list = new ArrayList<List<Integer>>();
 		
 		if (root == null) {
