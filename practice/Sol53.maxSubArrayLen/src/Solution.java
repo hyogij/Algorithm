@@ -39,22 +39,15 @@ public class Solution {
 		if (nums == null || nums.length == 0)
 			return max;
 
-		int[] sum = new int[nums.length];
-		sum[0] = nums[0];
-		for (int i = 1; i < nums.length; i++) {
-			sum[i] = sum[i - 1] + nums[i];
+		int[] sum = new int[nums.length + 1];
+		for (int i = 0; i < nums.length; i++) {
+			sum[i + 1] = sum[i] + nums[i];
 		}
-
-		System.out.println(Arrays.toString(sum));
 
 		// Find the sub array from i to j that sums to k
 		for (int i = 0; i < nums.length; i++) {
 			for (int j = i; j < nums.length; j++) {
-				int total = 0;
-				if (i == 0)
-					total = sum[j];
-				else
-					total = sum[j] - sum[i - 1];
+				int total = sum[j + 1] - sum[i];
 
 				int length = j - i + 1;
 				if (total == s && length > max)
