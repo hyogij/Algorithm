@@ -1,5 +1,3 @@
-
-
 /*
  ==========================================================
  Author : Hyogi Jung(hyogij@gmail.com)
@@ -15,13 +13,24 @@ public class Solution {
 	 * no duplicate elements.
 	 */
 	public static void main(String[] args) {
-		int[] array1 = {2, 4, 6, 8, 10, 11};
-		int[] array2 = {1, 3, 5, 7, 9, 12, 13, 14};
+		int[] array1 = {1, 2, 3, 4, 5, 6, 7};
+		int[] array2 = {8, 9, 10, 11, 12, 13};
 
 		int k = 6;
 		System.out.println(kthElement(array1, array2, k));
 		System.out.println(kthElementAdvanced(array1, array2, array1.length,
 				array2.length, k));
+		System.out.println(kthsmallest(array1, array2, k));
+
+		System.out.println(kthElement(array1, array2, 2));
+		System.out.println(kthElementAdvanced(array1, array2, array1.length,
+				array2.length, 2));
+		System.out.println(kthsmallest(array1, array2, 2));
+
+		System.out.println(kthElement(array1, array2, 8));
+		System.out.println(kthElementAdvanced(array1, array2, array1.length,
+				array2.length, 8));
+		System.out.println(kthsmallest(array1, array2, 8));
 	}
 
 	public static int kthElement(int[] array1, int[] array2, int k) {
@@ -39,7 +48,7 @@ public class Solution {
 
 		// O(k) : Use Linear search
 		int index = 0, index1 = 0, index2 = 0;
-		for (; index1 < array1.length || index2 < array2.length;) {
+		for (; index1 < array1.length && index2 < array2.length;) {
 			if (array1[index1] > array2[index2]) {
 				num = array2[index2];
 				index2++;
@@ -89,6 +98,33 @@ public class Solution {
 			copied2 = new int[j];
 			System.arraycopy(array2, 0, copied2, 0, j);
 			return kthElementAdvanced(copied1, copied2, length1 - i, j, k - i);
+		}
+	}
+
+	public static int kthsmallest(int[] A, int[] B, int k) {
+		int begin = Math.max(0, k - B.length); // Binary search begin index
+		int end = Math.min(A.length, k); // Binary search end end index
+
+		while (begin < end) {
+			// Search until mid = k
+			int mid = begin + (end - begin) / 2;
+
+			if (mid < A.length && k - mid > 0 && A[mid] < B[k - mid - 1]) {
+				begin = mid + 1;
+			} else if (mid > 0 && k - mid < B.length && A[mid - 1] > B[k - mid]) {
+				end = mid;
+			} else {
+				begin = mid;
+				break;
+			}
+		}
+
+		if (begin == 0) {
+			return B[k - 1];
+		} else if (begin == k) {
+			return A[k - 1];
+		} else {
+			return Math.max(A[begin - 1], B[k - begin - 1]);
 		}
 	}
 }
