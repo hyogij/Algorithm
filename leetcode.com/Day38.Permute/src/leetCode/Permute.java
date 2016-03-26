@@ -56,4 +56,25 @@ public class Permute {
 			}
 		}
 	}
+
+	public static List<List<Integer>> permutation(int[] nums) {
+		List<List<Integer>> permutations = new ArrayList<List<Integer>>();
+
+		permutationHelper(nums, 0, permutations, new ArrayList<Integer>());
+		return permutations;
+	}
+
+	public static void permutationHelper(int[] nums, int index, List<List<Integer>> permutations,
+			List<Integer> list) {
+		if (list.size() == nums.length) {
+			permutations.add(list);
+			return;
+		}
+
+		for (int i = 0; i <= list.size(); i++) {
+			List<Integer> newList = new ArrayList<Integer>(list);
+			newList.add(i, nums[index]);
+			permutationHelper(nums, index + 1, permutations, newList);
+		}
+	}  
 }
