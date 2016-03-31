@@ -36,42 +36,64 @@ public class Solution {
 		// printGraph(tree);
 		inorder(tree);
 		System.out.println("isPairPresent " + isPairPresent(tree, 33));
+		System.out.println("isPairPresent " + isPairPresent(tree, 35));
+		System.out.println("isPairPresent " + isPairPresent(tree, 30));
+		System.out.println("isPairPresent " + isPairPresent(tree, 31));
+		System.out.println("isPairPresent " + isPairPresent(tree, 32));
+		System.out.println("isPairPresent " + isPairPresent(tree, 34));
 	}
 	
 	public static boolean isPairPresent(TreeNode root, int target) {
-		if(root == null)
+		if (root == null)
 			return false;
-		
+
 		Stack<TreeNode> stack1 = new Stack<TreeNode>();
 		Stack<TreeNode> stack2 = new Stack<TreeNode>();
-		
+
 		TreeNode forward = root, reverse = root;
 		// Insert left children into stack1
-		while(forward != null) {
+		while (forward != null) {
 			stack1.add(forward);
 			forward = forward.left;
 		}
-		
+
 		// Insert right children into stack2
-		while(reverse != null) {
+		while (reverse != null) {
 			stack2.add(reverse);
 			reverse = reverse.right;
 		}
-		
+
 		while (stack1.isEmpty() != true && stack2.isEmpty() != true) {
 			TreeNode node1 = stack1.peek();
 			TreeNode node2 = stack2.peek();
-			
-			if(node1.val + node2.val == target) {
+
+			if (node1.val + node2.val == target) {
+				System.out
+						.println(node1.val + " " + node2.val + " = " + target);
 				return true;
-			} else if(node1.val + node2.val > target) {
-				// TODO(hyogij)
+			} else if (node1.val + node2.val > target) {
+				// Pop up node from stack2 and push nodes from its right
+				// children
+				node2 = stack2.pop();
+				node2 = node2.left;
+				while (node2 != null) {
+					stack2.add(node2);
+					node2 = node2.right;
+				}
+			} else {
+				// Pop up node from stack2 and push nodes from its left children
+				node1 = stack1.pop();
+				node1 = node1.right;
+				while (node1 != null) {
+					stack1.add(node1);
+					node1 = node1.left;
+				}
 			}
 		}
-		
+
 		return false;
 	}
-	
+
 	// Inorder traverse using stack
 	public static void inorder(TreeNode root) {
 		if (root == null)
@@ -97,6 +119,7 @@ public class Solution {
 				current = current.left;
 			}
 		}
+		System.out.println();
 		return;
 	}
 
