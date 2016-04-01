@@ -22,9 +22,17 @@ public class Solution {
 				+ isInterleave("abk", "axz", "aabxzc"));
 		System.out.println("isInterleave "
 				+ isInterleave("aabcc", "dbbca", "aadbbcbcac"));
+		System.out.println("isInterleave "
+				+ isInterleave("a", "a", "b"));
 	}
 
 	public static boolean isInterleave(String s1, String s2, String s3) {
+		if(s1 == null || s2 == null || s3 == null)
+			return false;
+			
+		if(s1.length() + s2.length() != s3.length())
+			return false;
+		
 		boolean[][] matrix = new boolean[s1.length() + 1][s2.length() + 1];
 
 		// Initialize first col
