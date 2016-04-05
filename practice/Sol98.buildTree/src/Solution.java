@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 
 /*
  ==========================================================
@@ -27,17 +26,16 @@ public class Solution {
 
 	public static TreeNode buildTreeHelper(int[] preorder, int[] inorder,
 			int left, int right, int index) {
-		if (left < right && index < preorder.length) {
-			int value = preorder[index];
-			TreeNode node = new TreeNode(value);
-			int mid = findIndex(inorder, value, left, right);
-			node.left = buildTreeHelper(preorder, inorder, left, mid - 1,
-					index + 1);
-			node.right = buildTreeHelper(preorder, inorder, mid + 1, right,
-					index + mid - left + 1);
-			return node;
-		}
-		return null;
+		if(left > right || index > preorder.length)
+			return null;
+		
+		int value = preorder[index];
+		TreeNode node = new TreeNode(value);
+		int mid = findIndex(inorder, value, left, right);
+		node.left = buildTreeHelper(preorder, inorder, left, mid - 1, index + 1);
+		node.right = buildTreeHelper(preorder, inorder, mid + 1, right, index
+				+ (mid - left) + 1);
+		return node;
 	}
 
 	public static int findIndex(int[] inorder, int target, int left, int right) {
