@@ -35,6 +35,13 @@ public class Solution {
 		List<List<String>> list = solveNQueens(4);
 		System.out.println(list.toString());
 	}
+	
+	public static int totalNQueens(int n) {
+		List<List<String>> list = new ArrayList<List<String>>();
+		int board[][] = new int[n][n];
+		solveNQueensSetHelper(board, 0, list);
+		return list.size();
+	}
 
 	public static List<List<String>> solveNQueens(int n) {
 		List<List<String>> list = new ArrayList<List<String>>();
@@ -77,6 +84,24 @@ public class Solution {
 
 		return list;
 	}
+	
+	public static boolean isSafePosition(int[][] board, int row, int col) {
+		// This position is already placed another queen
+		if (board[row][col] == 1)
+			return false;
+
+		// Compare with other queens
+		for (int i = 0; i < board.length; i++) {
+			for (int j = 0; j < board[i].length; j++) {
+				if (board[i][j] == 1) {
+					if (row == i || col == j || (i - j) == (row - col)
+							|| (i + j) == (row + col))
+						return false;
+				}
+			}
+		}
+		return true;
+	}
 
 	public static boolean solveNQueensGeeks(int[][] board) {
 		return solveNQueensHelper(board, 0);
@@ -97,24 +122,6 @@ public class Solution {
 			}
 		}
 		return false;
-	}
-
-	public static boolean isSafePosition(int[][] board, int row, int col) {
-		// This position is already placed another queen
-		if (board[row][col] == 1)
-			return false;
-
-		// Compare with other queens
-		for (int i = 0; i < board.length; i++) {
-			for (int j = 0; j < board[i].length; j++) {
-				if (board[i][j] == 1) {
-					if (row == i || col == j || (i - j) == (row - col)
-							|| (i + j) == (row + col))
-						return false;
-				}
-			}
-		}
-		return true;
 	}
 
 	public static void printBoard(int[][] board) {
