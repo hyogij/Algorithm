@@ -38,7 +38,7 @@ public class Solution {
 		nextPermutation(arr2);
 		System.out.println(Arrays.toString(arr2));
 		
-		int[] arr3 = {1, 3, 2};
+		int[] arr3 = {1, 3, 2}; // 213
 		nextPermutation(arr3);
 		System.out.println(Arrays.toString(arr3));
 		
@@ -53,27 +53,27 @@ public class Solution {
 		int[] arr6 = {2, 3, 1};
 		nextPermutation(arr6);
 		System.out.println(Arrays.toString(arr6));
+		
+		int[] arr7 = {4, 2, 0, 2, 3, 2, 0};
+		nextPermutation(arr7);
+		System.out.println(Arrays.toString(arr7));
 	}
 	
-//		Input:
-//		[4,2,0,2,3,2,0]
-//		Output:
-//		[4,2,2,0,0,2,3]
-//		Expected:
-//		[4,2,0,3,0,2,2]
-
 	public static void nextPermutation(int[] nums) {
-		for (int i = nums.length - 1; i > 0; i--) {
-			for (int j = i - 1; j >= 0; j--) {
-
-				// Find the first value which is smaller than left element
-				if (nums[i] > nums[j]) {
-					swap(nums, i, j);
-					
-					// Generate new small number with these indexes
-					generateSmallNumber(nums, j + 1, nums.length);
-					return;
+		int i = nums.length - 2;
+		for (; i >= 0; i--) {
+			// Find the first value which is smaller than previous element
+			if (nums[i] < nums[i + 1]) {
+				// Find the first value which is greater than given number
+				int num = nums[i];
+				for (int j = nums.length - 1; j > i; j--) {
+					if (nums[j] > num) {
+						swap(nums, i, j);
+						generateSmallNumber(nums, i + 1, nums.length);
+						return;
+					}
 				}
+				break;
 			}
 		}
 
