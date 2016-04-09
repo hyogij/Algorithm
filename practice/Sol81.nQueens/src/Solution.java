@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /*
@@ -20,25 +22,111 @@ public class Solution {
 	 * respectively.
 	 * 
 	 * For example, There exist two distinct solutions to the 4-queens puzzle:
-	 * 
-	 * [[".Q..", // Solution 1 
-	 * "...Q", 
-	 * "Q...", 
-	 * "..Q."],
-	 * 
-	 * ["..Q.", // Solution 2 
-	 * "Q...", 
-	 * "...Q", 
-	 * ".Q.."] ]
+	 * // Solution 1
+	 * [[".Q..",  "...Q", "Q...", "..Q."],
+	 * // Solution 2
+	 * ["..Q.", "Q...", "...Q", ".Q.."] ]
 	 */
 	public static void main(String[] args) {
+		int board[][] = {{0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}};
+		// System.out.println("solveNQUtil : " + solveNQueensGeeks(board));
+		// printBoard(board);
 
-		// printGraph(tree);
-		System.out.println("isPairPresent " + isPairPresent(tree, 33));
+		List<List<String>> list = solveNQueens(4);
+		System.out.println(list.toString());
+	}
+	
+	public static int totalNQueens(int n) {
+		List<List<String>> list = new ArrayList<List<String>>();
+		int board[][] = new int[n][n];
+		solveNQueensSetHelper(board, 0, list);
+		return list.size();
 	}
 
-	public List<List<String>> solveNQueens(int n) {
-		// 배열을 만들어서, 가능한 조건을 모두 넣는다 
+	public static List<List<String>> solveNQueens(int n) {
+		List<List<String>> list = new ArrayList<List<String>>();
+		int board[][] = new int[n][n];
+		solveNQueensSetHelper(board, 0, list);
+		return list;
+	};
+
+	public static void solveNQueensSetHelper(int[][] board, int n,
+			List<List<String>> list) {
+		if (n == board.length) {
+			// Print board to array list
+			list.add(printBoardAsString(board));
+			return;
+		}
+
+		// Find correct col in given row
+		for (int i = 0; i < board[n].length; i++) {
+			if (isSafePosition(board, n, i)) {
+				board[n][i] = 1; // Place queen
+				solveNQueensSetHelper(board, n + 1, list);
+				board[n][i] = 0; // Repalce queen
+			}
+		}
+		return;
 	}
 
+	private static List<String> printBoardAsString(int[][] board) {
+		List<String> list = new ArrayList<String>();
+		for (int i = 0; i < board.length; i++) {
+			StringBuffer sb = new StringBuffer();
+			for (int j = 0; j < board[i].length; j++) {
+				if (board[i][j] == 1)
+					sb.append("Q");
+				else
+					sb.append(".");
+			}
+			list.add(sb.toString());
+		}
+
+		return list;
+	}
+	
+	public static boolean isSafePosition(int[][] board, int row, int col) {
+		// This position is already placed another queen
+		if (board[row][col] == 1)
+			return false;
+
+		// Compare with other queens
+		for (int i = 0; i < board.length; i++) {
+			for (int j = 0; j < board[i].length; j++) {
+				if (board[i][j] == 1) {
+					if (row == i || col == j || (i - j) == (row - col)
+							|| (i + j) == (row + col))
+						return false;
+				}
+			}
+		}
+		return true;
+	}
+
+	public static boolean solveNQueensGeeks(int[][] board) {
+		return solveNQueensHelper(board, 0);
+	}
+
+	public static boolean solveNQueensHelper(int[][] board, int n) {
+		if (n == board.length)
+			return true;
+
+		// Find correct col in given row
+		for (int i = 0; i < board[n].length; i++) {
+			if (isSafePosition(board, n, i)) {
+				board[n][i] = 1; // Place queen
+				if (solveNQueensHelper(board, n + 1))
+					return true;
+
+				board[n][i] = 0; // Repalce queen
+			}
+		}
+		return false;
+	}
+
+	public static void printBoard(int[][] board) {
+		for (int i = 0; i < board.length; i++) {
+			System.out.println(Arrays.toString(board[i]));
+		}
+	}
 }
