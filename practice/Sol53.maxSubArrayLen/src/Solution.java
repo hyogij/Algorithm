@@ -57,6 +57,33 @@ public class Solution {
 
 		return max;
 	}
+	
+	public static int maxSubArrayLenSimple(int s, int[] nums) {
+		if (nums == null || nums.length == 0)
+			return 0;
+
+		Map<Integer, Integer> map = new HashMap<Integer, Integer>();
+		int sum = 0;
+		for (int i = 0; i < nums.length; i++) {
+			sum += nums[i];
+			map.put(sum, i);
+		}
+
+		int max = Integer.MIN_VALUE;
+		if (map.containsKey(s)) {
+			max = map.get(s) + 1;
+		}
+
+		for (int i = 0; i < nums.length; i++) {
+			sum = s + nums[i];
+			if (map.containsKey(sum)) {
+				int length = map.get(sum) - i;
+				max = Math.max(length, max);
+			}
+		}
+
+		return max;
+	}
 
 	public static int maxSubArrayLenAdvanced(int s, int[] nums) {
 		if (nums == null || nums.length == 0)
