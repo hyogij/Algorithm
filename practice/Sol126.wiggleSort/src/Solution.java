@@ -29,13 +29,42 @@ public class Solution {
 		int[] nums2 = { 1, 3, 2, 2, 3, 1 };
 		wiggleSort(nums2);
 		System.out.println(Arrays.toString(nums2));
-		
+
 		int[] nums3 = { 4, 5, 5, 6 };
 		wiggleSort(nums3);
 		System.out.println(Arrays.toString(nums3)); // Not correct!!
 	}
 
 	public static void wiggleSort(int[] nums) {
+		Arrays.sort(nums);
+		int n = nums.length, mid = n % 2 == 0 ? n / 2 - 1 : n / 2;
+		int[] temp = Arrays.copyOf(nums, n);
+		int index = 0;
+		for (int i = 0; i <= mid; i++) {
+			nums[index] = temp[mid - i];
+			if (index + 1 < n)
+				nums[index + 1] = temp[n - i - 1];
+			index += 2;
+		}
+	}
+	
+	public static void wiggleSort2(int[] nums) {
+		Arrays.sort(nums);
+		int n = nums.length, mid = n / 2;
+		
+		// Sorted Array
+		int[] sorted = Arrays.copyOf(nums, n);
+		
+		for (int i = 0; i < nums.length; i++) {
+			if(i % 2 ==0) {
+				nums[i] = sorted[i/2];
+			} else {
+				nums[i] = sorted[mid + i/2];
+			}
+		}
+	}
+
+	public static void wiggleSortBasic(int[] nums) {
 		if (nums == null || nums.length == 0)
 			return;
 
