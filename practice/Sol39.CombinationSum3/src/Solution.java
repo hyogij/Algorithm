@@ -33,17 +33,17 @@ public class Solution {
 		return combinations;
 	}
 
-	public static void combine3Helper(List<List<Integer>> combinations,
-			List<Integer> list, int index, int length, int k, int sum) {
+	public static void combine3Helper(List<List<Integer>> combinations, List<Integer> list,
+			int index, int length, int k, int sum) {
 		if (k == 0 && sum == 0) {
-			combinations.add(list);
+			combinations.add(new ArrayList<Integer>(list));
 			return;
 		}
 
 		for (int i = index; i < length; i++) {
-			List<Integer> newList = new ArrayList<Integer>(list);
-			newList.add(i);
-			combine3Helper(combinations, newList, i + 1, length, k - 1, sum - i);
+			list.add(i);
+			combine3Helper(combinations, list, i + 1, length, k - 1, sum - i);
+			list.remove(list.size() - 1);
 		}
 	}
 }
