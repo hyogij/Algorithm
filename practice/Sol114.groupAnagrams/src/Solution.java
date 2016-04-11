@@ -3,6 +3,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 /*
  ==========================================================
@@ -65,4 +66,25 @@ public class Solution {
 
 		return list;
 	}
+	
+	// word break 
+	// 재귀적으로는 어떻게 할 수 있는가?
+	// 존재하는 경우 재귀적으로 호출 한다, 이 때의 시간복잡도는 어떻게 되나? 
+	public static boolean wordBreak(String s, Set<String> dict) {
+		return helper(s, 0, dict);
+	}
+	
+	public static boolean helper(String s, int index, Set<String> dict) {
+		if(index == s.length())
+			return true;
+		
+		for(int i = index + 1; i < s.length(); i++) {
+			String word = s.substring(index, i);
+			if(dict.contains(word)) {
+				return helper(s, i, dict);
+			}
+		}
+		return false;
+	}
+	// DP를 이용해서 이런 코드를 작성 할 수 있어야 한다.
 }

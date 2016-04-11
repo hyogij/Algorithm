@@ -9,7 +9,7 @@ import java.util.TreeMap;
  ==========================================================
  Author : Hyogi Jung(hyogij@gmail.com)
  Date : 2015.11.12
- Problem : Find the anagrams in given string and print strings order by lexicographical
+ Problem : Find the anagrams in given string and print strings order by lexicographical 
  ==========================================================
  */
 public class Solution {

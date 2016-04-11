@@ -41,8 +41,6 @@ public class SearchInsertPosition {
 			return 0;
 		if (nums[right] < target)
 			return right + 1;
-		if(left == right)
-			return left;
 
 		// Finds the index using binary search
 		while (left < right) {

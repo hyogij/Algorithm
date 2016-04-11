@@ -1,6 +1,5 @@
 package leetCode;
 
-import leetCode.BuildTree.TreeNode;
 
 /*
  ==========================================================
@@ -17,7 +16,6 @@ public class FindMedian {
 	 * Find the median of the two sorted arrays. The overall run time complexity
 	 * should be O(log (m+n)).
 	 */
-
 	public static void main(String[] args) {
 		int[] nums1 = {2, 4, 6, 8, 10};
 		int[] nums2 = {1, 3, 5, 7, 9};

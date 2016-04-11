@@ -23,6 +23,7 @@ public class Solution {
 	 * 
 	 * Subscribe to see which companies asked this question
 	 */
+	private static final int SQUARE_SIZE = 3;
 	public static void main(String[] args) {
 		String[] array1 = {"..4...63.", ".........", "5......9.", "...56....",
 				"4.3.....1", "...7.....", "...5.....", ".........", "........."};
@@ -102,7 +103,6 @@ public class Solution {
 		return true;
 	}
 
-	private static final int SQUARE_SIZE = 3;
 	private static boolean isValidSquare(char[][] board, int col, int row) {
 		HashSet<Integer> set = new HashSet<Integer>();
 		for (int i = col; i < col + SQUARE_SIZE; i++) {

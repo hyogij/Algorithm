@@ -1,18 +1,19 @@
+import java.util.ArrayList;
+import java.util.List;
+
 /*
  ==========================================================
  Author : Hyogi Jung(hyogij@gmail.com)
  Date : 2016.02.15
- Question Number : 165
- Link : https://leetcode.com/problems/majority-element/
+ Question Number : 166
+ Link : https://leetcode.com/problems/majority-element-ii/
  ==========================================================
  */
 public class Solution {
 	/*
-	 * Given an array of size n, find the majority element. The majority element
-	 * is the element that appears more than n/2 times.
-	 * 
-	 * You may assume that the array is non-empty and the majority element
-	 * always exist in the array.
+	 * Given an integer array of size n, find all elements that appear more than
+	 * n/3 times. The algorithm should run in linear time and in O(1) space.
+	 * Show Hint
 	 */
 	public static void main(String[] args) {
 		// int[] num = {47, 47, 72, 47, 72, 47, 79, 47, 12, 92, 13, 47, 47, 83,
@@ -23,42 +24,14 @@ public class Solution {
 		// 54, 30, 11, 47, 47, 86, 47, 55, 40, 49, 34, 19, 67, 16, 47, 36,
 		// 47, 41, 19, 80, 47, 47, 27};
 		int[] num = {6, 5, 5};
-		System.out.println("MajorityElement : " + majorityElement(num));
-		System.out.println("majorityElementSolution : "
-				+ majorityElementSolution(num));
+		System.out.println("majorityElement : " + majorityElement(num).toString());
 	}
 
-	public static int majorityElement(int[] nums) {
-		int count = 0, major = 0;
-		for (int num : nums) {
-			if (count == 0) {
-				major = num;
-				count = 1;
-			} else {
-				if (major != num) {
-					count--;
-				} else {
-					count++;
-				}
-			}
-		}
-		return major;
-	}
-
-	public static int majorityElementSolution(int[] nums) {
-		int result = 0, count = 0;
-
-		for (int i = 0; i < nums.length; i++) {
-			if (count == 0) {
-				result = nums[i];
-				count = 1;
-			} else if (result == nums[i]) {
-				count++;
-			} else {
-				count--;
-			}
-		}
-
-		return result;
+	public static List<Integer> majorityElement(int[] nums) {
+		List<Integer> list = new ArrayList<Integer>();
+		
+		// HashMap을 이용하는 경우 
+		
+		return list;
 	}
 }

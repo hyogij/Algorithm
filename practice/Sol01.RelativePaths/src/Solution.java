@@ -30,7 +30,6 @@ public class Solution {
 		System.out.println(absolute("../../etc/xyz/../abc", "/usr/bin/mail"));
 		System.out.println(absolute("../../../../etc/xyz/../abc",
 				"/usr/bin/mail"));
-
 	}
 
 	public static String pwd(String relativePath, String absolutePath) {

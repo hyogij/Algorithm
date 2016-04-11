@@ -23,12 +23,12 @@ public class palindromLinkedList {
 	}
 
 	public static void testEvenListNode() {
-		ListNode l1 = new ListNode(1);
+		ListNode l1 = new ListNode(0);
 		ListNode l2 = new ListNode(2);
 		ListNode l3 = new ListNode(31);
 		ListNode l4 = new ListNode(31);
 		ListNode l5 = new ListNode(2);
-		ListNode l6 = new ListNode(1);
+		ListNode l6 = new ListNode(17);
 
 		l1.next = l2;
 		l2.next = l3;
@@ -38,6 +38,7 @@ public class palindromLinkedList {
 
 		System.out.println("isPalindrome " + isPalindromeStack(l1));
 		System.out.println("isPalindrome " + isPalindrome(l1));
+		System.out.println("isPalindrome " + isPalindromeRecursive(l1));
 	}
 
 	public static void testOddListNode() {
@@ -54,6 +55,7 @@ public class palindromLinkedList {
 
 		System.out.println("isPalindrome " + isPalindromeStack(l1));
 		System.out.println("isPalindrome " + isPalindrome(l1));
+		System.out.println("isPalindrome " + isPalindromeRecursive(l1));
 	}
 
 	// Make new number and check the palindrome in nubmer. In this case, there
@@ -147,5 +149,64 @@ public class palindromLinkedList {
 		ListNode(int x) {
 			val = x;
 		}
+	}
+
+	public boolean isPalindromeMySolution(ListNode root) {
+		ListNode slow = root, fast = root;
+		while (fast != null && fast.next != null && fast.next.next != null) {
+			slow = slow.next;
+			fast = fast.next.next;
+		}
+		ListNode mid = slow, next = mid.next;
+		if (fast.next == null) {
+			// Odd list
+			mid.next = null;
+			mid = reverse(root).next;
+		} else {
+			// Even list
+			mid.next = null;
+			mid = reverse(root);
+		}
+
+		while (next != null && mid != null) {
+			if (next.val != mid.val)
+				return false;
+			next = next.next;
+			mid = mid.next;
+		}
+		return true;
+	}
+
+	// first = head, last = head, initially
+	static boolean x = true;
+	public static boolean isPalindromeUtil(ListNode first, ListNode last) {
+		// whenever last will reach at the end of the linkedlist, we will return
+		// true.
+		if (last == null)
+			return true;
+
+		// in each recursive call, we won't modify first, but modify last.
+		x = isPalindromeUtil(first, last.next);
+
+		// remember, when an element of stack return false, we will return false
+		// to each bottom most element.
+		if (!x)
+			return false;
+
+		// if x is true, we will check the next entry.
+		boolean y = false;
+		if (first.val == last.val) {
+			y = true;
+		}
+
+		// advancing first before returning from the current element of the
+		// stack.
+		first = first.next;
+		return y;
+	}
+
+	// A wrapper over isPalindromeUtil()
+	public static boolean isPalindromeRecursive(ListNode head) {
+		return isPalindromeUtil(head, head);
 	}
 }

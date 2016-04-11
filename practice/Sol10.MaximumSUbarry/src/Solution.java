@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 
 /*
  ==========================================================
@@ -41,9 +40,9 @@ public class Solution {
 		}
 		return max;
 	}
-	
+
 	public int maxSubArray(int[] nums) {
-        int maxSum = Integer.MIN_VALUE;
+		int maxSum = Integer.MIN_VALUE;
 		int sum = 0;
 		for (int i = 0; i < nums.length; i++) {
 			sum += nums[i];
@@ -55,5 +54,5 @@ public class Solution {
 			}
 		}
 		return maxSum;
-    }
+	}
 }

@@ -86,8 +86,11 @@ public class Solution {
 			};
 		}
 
+		int count = 0;
 		while (queue.isEmpty() != true) {
 			int course = queue.remove();
+			count++;
+
 			List<Integer> outbound = courses[course].outbound;
 			for (Integer num : outbound) {
 				courses[num].inbound--;
@@ -101,11 +104,7 @@ public class Solution {
 			}
 		}
 
-		for (int i = 0; i < numCourses; i++) {
-			if (courses[i].isVisited == false)
-				return false;
-		}
-		return true;
+		return count == numCourses;
 	}
 
 	public static boolean canFinishSimple(int numCourses, int[][] prerequisites) {

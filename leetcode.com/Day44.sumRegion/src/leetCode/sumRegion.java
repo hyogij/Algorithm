@@ -1,5 +1,12 @@
 package leetCode;
 
+/*
+==========================================================
+Author : Hyogi Jung(hyogij@gmail.com)
+Date : 2015.11.27
+Link : https://leetcode.com/problems/range-sum-query-2d-immutable/
+==========================================================
+*/
 public class sumRegion {
 	/*
 	 * Given a 2D matrix matrix, find the sum of the elements inside the

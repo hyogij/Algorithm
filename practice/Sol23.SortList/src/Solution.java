@@ -47,8 +47,8 @@ public class Solution {
 		ListNode l2 = sortList(slow);
 
 		// step 3. merge l1 and l2
-//		return merge(l1, l2);
-		return mergeTwoLists(l1, l2);
+		return merge(l1, l2);
+//		return mergeTwoLists(l1, l2);
 	}
 
 	private static ListNode merge(ListNode l1, ListNode l2) {
@@ -114,15 +114,6 @@ public class Solution {
 
 		return head;
     }
-
-	public static ListNode findMiddle(ListNode head, ListNode last) {
-		ListNode slow = head, fast = head;
-		while (fast != last && fast.next != last) {
-			fast = fast.next.next;
-			slow = slow.next;
-		}
-		return slow;
-	}
 
 	// Definition for singly-linked list.
 	public static class ListNode {

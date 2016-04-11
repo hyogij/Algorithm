@@ -40,7 +40,7 @@ public class Solution {
 					max = Math.max(max, mat[i][j]);
 				}
 			}
-
+		}
 		return max;
 	}
 }

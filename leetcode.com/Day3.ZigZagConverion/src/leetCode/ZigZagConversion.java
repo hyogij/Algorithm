@@ -1,6 +1,5 @@
 package leetCode;
 
-import javax.swing.tree.TreeNode;
 
 /*
  ==========================================================

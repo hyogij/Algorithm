@@ -91,8 +91,8 @@ public class LRUDubleLinkedList {
 			if (map.containsKey(key)) {
 				Node old = map.get(key);
 				old.value = value;
-				// remove(old);
-				// setHead(old);
+				remove(old);
+				setHead(old);
 			} else {
 				Node created = new Node(key, value);
 				if (map.size() >= capacity) {
@@ -103,7 +103,7 @@ public class LRUDubleLinkedList {
 				map.put(key, created);
 			}
 		}
-		
+
 		public void printLRU() {
 			System.out.print("printLRU : ");
 			Node node = head;

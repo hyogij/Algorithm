@@ -29,23 +29,17 @@ public class Solution {
 	}
 
 	public static String shortestPalindromeNaive(String s) {
-		StringBuffer sb = new StringBuffer(s);
-		
+		StringBuffer sb = new StringBuffer(s).reverse();
+
 		if (isPalindrome(s))
 			return s;
 
 		for (int i = 0; i < s.length(); i++) {
-			String palindrom = sb.reverse().substring(0, i + 1) + s;
+			String palindrom = sb.substring(0, i + 1) + s;
 			if (isPalindrome(palindrom))
 				return palindrom;
 		}
-
-		while (true) {
-			if (isPalindrome(s)) {
-				return s;
-			}
-			s = s.charAt(s.length() - 1) + s;
-		}
+		return "";
 	}
 
 	public static boolean isPalindrome(String s) {

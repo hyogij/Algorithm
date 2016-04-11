@@ -24,7 +24,7 @@ public class PascalTriangle {
 	 * [1,4,6,4,1] ]
 	 */
 	public static void main(String[] args) {
-		System.out.println("generate " + generate(5).toString());
+		System.out.println("generate " + generate(3).toString());
 	}
 
 	public static List<List<Integer>> generate(int numRows) {

@@ -68,7 +68,7 @@ public class TapeEquilibrium {
 	 * Elements of input arrays can be modified.
 	 */
 	public static void main(String[] args) {
-		int[] A = {3, 1, 2, 4, 3};
+		int[] A = {1, 1};
 		System.out.println("solution " + solution(A));
 	}
 	
@@ -80,19 +80,19 @@ public class TapeEquilibrium {
 		}
 		
 		int sum = 0;
-		for (int i = 0; i < A.length; i++) {
+		for (int i = 1; i < A.length; i++) {
 			sum += A[i];
 		}
 
-		int left = 0, right = sum;
+		int left = A[0], right = sum;
 		int min = Integer.MAX_VALUE;
-		for (int i = 0; i < A.length; i++) {
-			left += A[i];
-			right -= A[i];
+		for (int i = 1; i < A.length; i++) {
 			int abs = Math.abs((left - right));
 			if (abs < min) {
 				min = abs;
 			}
+			left += A[i];
+			right -= A[i];
 		}
 		return min;
 	}

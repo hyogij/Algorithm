@@ -139,4 +139,30 @@ public class Solution {
 
 		return max - min;
 	}
+	
+	// Initialize dist[v] = ¹«ÇÑ´ë
+		// marked[v]= false for all vertices v
+		/*
+			Queue<Integer> q = new Queue<Integer>();
+			
+			marked[s] = true;
+			dist[s] = 0;
+			
+			q.enqueue(s);
+			while (!q.isEmpty()) {
+			 int v = q.dequeue();
+			 marked[v] = false;
+			 for (Edge e : G.adj(v)) {
+				 int w = e.target();
+				 if (dist[w] > dist[v] + e.weight()) {
+					 dist[w] = dist[v] + e.weight();
+					 pred[w] = e;
+					 if (!marked[w]) {
+						 marked[w] = true;
+						 q.enqueue(w);
+					 }
+				 }
+			 }
+			}
+		*/
 }

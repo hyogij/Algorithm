@@ -27,8 +27,8 @@ public class ValidPalindrome {
 		System.out.println("isPalindromePractice "
 				+ isPalindromePractice("1a2"));
 		System.out.println("isPalindrome " + isPalindrome(",."));
-		System.out.println("isPalindromePractice "
-				+ isPalindromePractice(",."));
+		System.out
+				.println("isPalindromePractice " + isPalindromePractice(",."));
 		System.out.println("isPalindrome "
 				+ isPalindrome("A man, a plan, a canal: Panama"));
 		System.out.println("isPalindromePractice "

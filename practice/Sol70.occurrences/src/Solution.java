@@ -1,3 +1,5 @@
+import java.util.HashSet;
+
 
 /*
  ==========================================================
@@ -26,6 +28,15 @@ public class Solution {
 		System.out.println("occurrences " + occurrences(arr, 3));
 		System.out.println("occurrences " + occurrences(arr, 4));
 		System.out.println("occurrences " + occurrences(arr, 5));
+		
+		HashSet<Integer> set = new HashSet<Integer>();
+		set.add(1);
+		set.add(2);
+		set.add(3);
+		set.add(4);
+		set.add(5);
+		for(int i : set)
+			System.out.print(i + " ");
 	}
 	
 	public static int occurrences(int[] arr, int x) {

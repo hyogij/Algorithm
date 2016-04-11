@@ -1,3 +1,7 @@
+import java.util.Collections;
+import java.util.PriorityQueue;
+import java.util.Stack;
+
 /*
  ==========================================================
  Author : Hyogi Jung(hyogij@gmail.com)
@@ -31,6 +35,28 @@ public class Solution {
 		System.out.println(kthElementAdvanced(array1, array2, array1.length,
 				array2.length, 8));
 		System.out.println(kthsmallest(array1, array2, 8));
+		
+		Stack<String> stack = new Stack<String>();
+		stack.push("");
+		stack.pop();
+		
+		PriorityQueue<Integer> q =
+				new PriorityQueue<Integer>(10, Collections.reverseOrder());
+		q.add(11);
+		q.add(10);
+		q.add(1);
+		q.add(27);
+		q.add(2);
+		q.add(7);
+		System.out.println(q.toString());
+		
+		PriorityQueue<String> q1 =
+				new PriorityQueue<String>();
+		q1.add("kk");
+		q1.add("tt");
+		q1.add("zz");
+		q1.add("aa");		
+		System.out.println(q1.toString());
 	}
 
 	public static int kthElement(int[] array1, int[] array2, int k) {

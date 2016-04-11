@@ -1,6 +1,7 @@
 package leetCode;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /*
  ==========================================================
@@ -11,14 +12,13 @@ import java.util.ArrayList;
  ==========================================================
  */
 
-public class LRUPractice {
+public class LRUSingleLinkedList {
 	/*
 	 * Design and implement a data structure for Least Recently Used (LRU)
 	 * cache. It should support the following operations: get and set.
 	 * 
 	 * get(key) - Get the value (will always be positive) of the key if the key
-	 * exists in the cache, otherwise return -1. 
-	 * set(key, value) - Set or insert
+	 * exists in the cache, otherwise return -1. set(key, value) - Set or insert
 	 * the value if the key is not already present. When the cache reached its
 	 * capacity, it should invalidate the least recently used item before
 	 * inserting a new item.
@@ -99,7 +99,7 @@ public class LRUPractice {
 					break;
 				}
 			}
-			
+
 			Node node = new Node(key, value);
 
 			if (index < list.size()) {
@@ -117,9 +117,11 @@ public class LRUPractice {
 		}
 	}
 
-	public static class Node {
-		public int key = 0;
-		public int value = 0;
+	static class Node {
+		int key;
+		int value;
+		Node pre;
+		Node next;
 
 		public Node(int key, int value) {
 			this.key = key;
@@ -127,7 +129,7 @@ public class LRUPractice {
 		}
 
 		public void printNode() {
-			System.out.println("(" + key + ", " + value + ")");
+			System.out.println(key + " , " + value);
 		}
 	}
 }

@@ -5,7 +5,7 @@ import java.util.Scanner;
  ==========================================================
  Author : Hyogi Jung(hyogij@gmail.com)
  Date : 2015.11.12
- Problem : Identify whether there exists a pair of numbers in array such that thier sum is equal to N.
+ Problem : Identify whether there exists a pair of numbers in array such that their sum is equal to N
  ==========================================================
  */
 

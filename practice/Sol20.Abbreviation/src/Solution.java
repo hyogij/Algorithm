@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 
 /*
  ==========================================================
@@ -23,6 +24,7 @@ public class Solution {
 	 */
 
 	private static HashMap<String, Integer> map = new HashMap<String, Integer>();
+	
 	public static void main(String[] args) {
 		String[] dictionary = {"deer", "door", "cake", "card"};
 

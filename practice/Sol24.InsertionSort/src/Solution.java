@@ -54,16 +54,16 @@ public class Solution {
 	}
 	
 	public static ListNode insertionSortList(ListNode head) {
-		ListNode sortedHeadDummy = new ListNode(0);
-		ListNode curr = head;
-		while (curr != null) {
-			ListNode next = curr.next;
-			insert(sortedHeadDummy, curr);
+		ListNode dummyHead = new ListNode(0);
+		ListNode curr = head, next = null;
+		while(curr != null) {
+			next = curr.next;
+			insert(dummyHead, curr);
 			curr = next;
 		}
-		return sortedHeadDummy.next;
+		return dummyHead.next;
 	}
-
+	
 	private static void insert(ListNode dummyHead, ListNode target) {
 		// left to right scan to insert the target node
 		ListNode curr = dummyHead;

@@ -37,7 +37,6 @@ public class Main {
 			sb.append(str1.charAt(str1.length() - 1));
 			sb.append(str1.substring(0, str1.length() - 1));
 			str1 = sb.toString();
-			System.out.println(str1);
 			if (sb.toString().equals(str2)) {
 				return i + 1;
 			}

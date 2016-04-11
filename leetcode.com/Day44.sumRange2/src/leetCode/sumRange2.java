@@ -1,6 +1,5 @@
 package leetCode;
 
-import java.awt.Point;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -45,6 +44,11 @@ public class sumRange2 {
 		System.out.println(numArray.sumRange(0, 1));
 	}
 
+	// Your NumArray object will be instantiated and called as such:
+	// NumArray numArray = new NumArray(nums);
+	// numArray.sumRange(0, 1);
+	// numArray.update(1, 10);
+	// numArray.sumRange(1, 2);
 	public static class NumArray {
 		private int[] nums = null;
 		TreeMap<Integer, Integer> map = null;
@@ -93,10 +97,4 @@ public class sumRange2 {
 			return sum;
 		}
 	}
-
-	// Your NumArray object will be instantiated and called as such:
-	// NumArray numArray = new NumArray(nums);
-	// numArray.sumRange(0, 1);
-	// numArray.update(1, 10);
-	// numArray.sumRange(1, 2);
 }

@@ -59,6 +59,7 @@ public class MaxiumGap {
 		gap = maximumGap(unsorted);
 		System.out.println("maxiumGap = " + gap);
 	}
+	
 	/*
 	 * Solutions 1) O(n^2) method : Finds the next value of certain element in
 	 * an unsorted array 2) O(nlogn) method : Sorts the array, after that finds
@@ -69,7 +70,6 @@ public class MaxiumGap {
 	 * 
 	 * Q. BitSet 의 크기는?
 	 */
-
 	public static int maximumGap(int[] nums) {
 		if (nums == null || nums.length < 2)
 			return 0;

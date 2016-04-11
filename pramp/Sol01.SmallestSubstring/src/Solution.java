@@ -26,7 +26,7 @@ public class Solution {
 				+ getSmallestSubstring(arr, input1));
 
 		String target = "xyzz";
-		String input2 = "xyyzyzyyxxxxyzz";
+		String input2 = "xyyzyzyyxxxxy1zz";
 		System.out.println("getSmallestSubstringAdvanced "
 				+ getSmallestSubstringAdvanced(input2, target));
 		System.out.println("getSmallestSubstringTest "
@@ -160,7 +160,6 @@ public class Solution {
 			if (found[c] <= needed[c]) {
 				count++;
 			}
-			System.out.println("count " + count);
 
 			if (count == target.length()) {
 				c = input.charAt(start);
@@ -178,7 +177,6 @@ public class Solution {
 				if (currentLength < minLength) {
 					minLength = currentLength;
 					substring = input.substring(start, end + 1);
-					System.out.println("substring " + substring);
 				}
 
 			}

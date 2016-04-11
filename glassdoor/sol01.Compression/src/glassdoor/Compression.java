@@ -1,6 +1,5 @@
 package glassdoor;
 
-import java.util.List;
 
 /*
  ==========================================================

@@ -19,24 +19,35 @@ public class Solution {
 	 */
 	public static void main(String[] args) {
 		List<Interval> list = new ArrayList<Interval>();
-		// list.add(new Interval(1, 3));
-		// list.add(new Interval(2, 6));
-		// list.add(new Interval(8, 10));
-		// list.add(new Interval(15, 18));
+//		list.add(new Interval(1, 3));
+//		list.add(new Interval(2, 6));
+//		list.add(new Interval(8, 10));
+//		list.add(new Interval(15, 18));
 
 		// [[1,4],[0,1]]
 		// [[1,4],[0,0]]
 		// [[2,3],[4,5],[6,7],[8,9],[1,10]] --> [[2,3],[4,5],[6,7],[1,10]]
-		list.add(new Interval(2, 3));
-		list.add(new Interval(4, 5));
-		list.add(new Interval(6, 7));
-		list.add(new Interval(8, 9));
-		list.add(new Interval(1, 10));
+		 list.add(new Interval(2, 3));
+		 list.add(new Interval(4, 5));
+		 list.add(new Interval(6, 7));
+		 list.add(new Interval(8, 9));
+		 list.add(new Interval(1, 10));
 
+		System.out.println("list ");
+		for (int i = 0; i < list.size(); i++) {
+			list.get(i).print();
+		}
+
+		System.out.println("\nmerge ");
 		List<Interval> merged = merge(list);
-		System.out.println(merged.size());
 		for (int i = 0; i < merged.size(); i++) {
 			merged.get(i).print();
+		}
+
+		System.out.println("\nnon-overlapping ");
+		List<Interval> nonOverlapping = findNonOverlappingSets(list);
+		for (int i = 0; i < nonOverlapping.size(); i++) {
+			nonOverlapping.get(i).print();
 		}
 	}
 
@@ -65,6 +76,31 @@ public class Solution {
 		return list;
 	}
 
+	public static List<Interval> findNonOverlappingSets(List<Interval> intervals) {
+		List<Interval> list = new ArrayList<Interval>();
+		if (intervals == null || intervals.size() == 0)
+			return list;
+
+		// sort intervals by using self-defined Comparator
+		Collections.sort(intervals, new IntervalComparator());
+
+		Interval prevInterval = intervals.get(0);
+		for (int i = 1; i < intervals.size(); i++) {
+			Interval interval = intervals.get(i);
+			if (prevInterval.end < interval.start) {
+				list.add(prevInterval);
+			}
+			prevInterval = interval;
+		}
+		list.add(prevInterval);
+
+		return list;
+	}
+
+	// Find non-overlapping set :
+	// [1, 3],[2, 4],[6, 7] --> [6, 7]
+	// [[2,3],[4,5],[6,7],[8,9],[1,10]] --> null
+	// [1,3],[2,6],[8,10],[15,18] --> [8,10], [15,18]
 	static class IntervalComparator implements Comparator<Interval> {
 		public int compare(Interval i1, Interval i2) {
 			return i1.start - i2.start;

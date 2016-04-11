@@ -24,6 +24,8 @@ public class Solution {
 				+ isInterleave("aabcc", "dbbca", "aadbbcbcac"));
 		System.out.println("isInterleave "
 				+ isInterleave("a", "a", "b"));
+		System.out.println("isInterleave "
+				+ isInterleave("aabc", "abad", "aabadabc"));
 	}
 
 	public static boolean isInterleave(String s1, String s2, String s3) {
@@ -57,6 +59,8 @@ public class Solution {
 			}
 		}
 
+		print2dArray(matrix);
+		
 		return matrix[s1.length()][s2.length()];
 	}
 
