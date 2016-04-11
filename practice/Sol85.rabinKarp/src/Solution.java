@@ -61,7 +61,7 @@ public class Solution {
 		return hash;
 	}
 
-	// If input string is "abc" then the hash value will be (a*prime^2 + b*prime
+	// If input string is "cba" then the hash value will be (a*prime^2 + b*prime
 	// + c)
 	private static int modifyHashValue(int old, char prev, char last, int length) {
 		int hash = old - (prev - 'A');
