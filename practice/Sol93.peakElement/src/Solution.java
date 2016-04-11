@@ -85,16 +85,25 @@ public class Solution {
 	}
 
 	public static int findPeakElementBinarySearch(int[] nums) {
-		int left = 0, right = nums.length - 1;
-		while (left < right) {
-			int mid1 = (right - left) / 2 + left;
-			int mid2 = mid1 + 1;
-			if (nums[mid1] < nums[mid2])
-				left = mid2;
+		return helper(nums, 0, nums.length - 1);
+	}
+
+	public static int helper(int[] nums, int left, int right) {
+		if (left == right) {
+			return left;
+		} else if (left + 1 == right) {
+			if (nums[right] > nums[left])
+				return right;
+			return left;
+		} else {
+			int mid = (right - left) / 2 + left;
+			if (nums[mid - 1] < nums[mid] && nums[mid] > nums[mid + 1])
+				return mid;
+			else if (nums[mid - 1] > nums[mid] && nums[mid] > nums[mid + 1])
+				return helper(nums, left, mid - 1);
 			else
-				right = mid1;
+				return helper(nums, mid + 1, right);
 		}
-		return left;
 	}
 
 	public static int findPeakElementLogN(int[] nums) {
