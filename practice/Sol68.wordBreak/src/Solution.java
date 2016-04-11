@@ -29,6 +29,7 @@ public class Solution {
 		System.out.println("wordBreak " + wordBreak("aleetcode1", set));
 		System.out.println("wordBreak " + wordBreak("a1leetcode", set));
 		System.out.println("wordBreak " + wordBreak("aleetcode", set));
+		System.out.println("wordBreak " + wordBreak("babaaleetcode", set));
 
 		System.out.println("wordBreak " + wordBreakDP("aleetcode1", set));
 		System.out.println("wordBreak " + wordBreakDP("a1leetcode", set));
@@ -47,15 +48,13 @@ public class Solution {
 			return true;
 		}
 
-		boolean isSegemented = false;
-
 		for (int j = 0; j < s.length() - index; j++) {
 			String sub = s.substring(index, index + j + 1);
-			if (dict.contains(sub)) {
-				isSegemented = wordBreakHelper(s, index + j + 1, dict);
+			if (dict.contains(sub) && wordBreakHelper(s, index + j + 1, dict)) {
+				return true;
 			}
 		}
-		return isSegemented;
+		return false;
 	}
 
 	public boolean wordBreak1D(String s, Set<String> dict) {
