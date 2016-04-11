@@ -1,11 +1,12 @@
+import java.util.Stack;
 /*
- ==========================================================
- Author : Hyogi Jung(hyogij@gmail.com)
- Date : 2016.04.01
- Problem : http://geeksquiz.com/stack-set-2-infix-to-postfix/
- http://www.tutorialspoint.com/javaexamples/data_intopost.htm
- ==========================================================
- */
+==========================================================
+Author : Hyogi Jung(hyogij@gmail.com)
+Date : 2016.04.01
+Problem : http://geeksquiz.com/stack-set-2-infix-to-postfix/
+http://www.tutorialspoint.com/javaexamples/data_intopost.htm
+==========================================================
+*/
 public class Solution {
 	/*
 	 * Infix expression: The expression of the form a op b. When an operator is
@@ -25,15 +26,10 @@ public class Solution {
 	 * stack. We will cover postfix expression evaluation in a separate post.
 	 */
 	public static void main(String[] args) {
-		// 1+2*4/5-7+3/6
-		// Postfix is 124*5/+7-36/+
-		// 2ÀÚ¸® ¼ö ÀÎ °æ¿ì¿¡´Â ¾î¶»°Ô ÇØ¾ß ÇÏ³ª?
-		// ÀÏ´Ü ÇÑÀÚ¸® ¼ö¶ó°í ÇÏÀÚ 
-		// °¡·Î°¡ ¾ø´Â °æ¿ìµµ °¡´ÉÇÑ°¡?
-		// ((1+((2*4)/5))-7)+(3/6)
-		//  124*5/+7-36/+
 		infixTopostfix("1+2*4/5-7+3/6");
-		infixTopostfix("a+b*(c^d-e)^(f+g*h)-i ");
+		infixTopostfix("1*2-4/5");
+		infixTopostfix("(1+2)");   // 124*5/+7-36/+
+		infixTopostfix("((1+((2*4)/5))-7)+(3/6)");   // 124*5/+7-36/+
 	}
 
 	/*
@@ -41,23 +37,59 @@ public class Solution {
 	1. Scan the infix expression from left to right.
 	2. If the scanned character is an operand, output it.
 	3. Else,
-	¡¦..3.1 If the precedence of the scanned operator is greater than the precedence of the operator 
+	É..3.1 If the precedence of the scanned operator is greater than the precedence of the operator 
 	in the stack(or the stack is empty), push it.
-	¡¦..3.2 Else, Pop the operator from the stack until the precedence of the scanned operator is 
+	É..3.2 Else, Pop the operator from the stack until the precedence of the scanned operator is 
 	less-equal to the precedence of the operator residing on the top of the stack. Push the scanned 
 	operator to the stack.
-	4. If the scanned character is an ¡®(¡®, push it to the stack.
-	5. If the scanned character is an ¡®)¡¯, pop and output from the stack until an ¡®(¡® is encountered.
+	4. If the scanned character is an Ô(Ô, push it to the stack.
+	5. If the scanned character is an Ô)Õ, pop and output from the stack until an Ô(Ô is encountered.
 	6. Repeat steps 2-6 until infix expression is scanned.
 	7. Pop and output from the stack until it is not empty.
 	*/
-	// ÇöÀç ¿¬»êÀÚ°¡ ½ºÅÃÀÇ ¿¬»êÀÚº¸´Ù Å©¸é ³Ö´Â´Ù, ¶Ç´Â ½ºÅÃÀÌ empty ÀÌ°Å³ª, °°Àº °æ¿ìµµ ²¨³½´Ù. 
-	// ÇöÀçÀÇ ¿¬»êÀÚ°¡ ½ºÅÃÀÇ ¿¬»êÀÚº¸´Ù ÀÛÀ¸¸é ²¨³½´Ù, °°¾ÆÁö´Â°Ô ³ª¿Ã¶§±îÁö ²¨³½´Ù.
-	// (´Â ½ºÅÃ¿¡ ³Ö´Â´Ù. ) ³ª¿À¸é, (¿¡ ³ª¿Ã¶§±îÁö ½ºÅÃ¿¡¼­ ²¨³½´Ù 
 	public static void infixTopostfix(String input) {
-		System.out.println(input);
+		System.out.print(input + " : ");
 		Stack<Character> stack = new Stack<Character>();
-		
-		
+		for (int i = 0; i < input.length(); i++) {
+			char c = input.charAt(i);
+			if (Character.isDigit(c)) {
+				System.out.print(c);
+			} else if (c == '(') {
+				stack.push(c);
+			} else if (c == ')') {
+				while (stack.isEmpty() != true && stack.peek() != '(') {
+					System.out.print(stack.pop());
+				}
+				stack.pop(); // pop '('
+			} else if (c == '*' || c == '/' || c == '^') {
+				if (stack.isEmpty()) {
+					stack.push(c);
+					continue;
+				}
+				while (stack.isEmpty() != true && (stack.peek() != '+' && stack.peek() != '-')
+						&& stack.peek() != '(') {
+					System.out.print(stack.pop());
+				}
+				stack.push(c);
+			} else if (c == '+' || c == '-') {
+				if (stack.isEmpty()) {
+					stack.push(c);
+					continue;
+				}
+				while (stack.isEmpty() != true && stack.peek() != '(') {
+					System.out.print(stack.pop());
+				}
+				stack.push(c);
+			}
+		}
+		while (stack.isEmpty() != true) {
+			if (stack.peek() != '(') {
+				System.out.print(stack.pop());
+			} else {
+				stack.pop();
+			}
+
+		}
+		System.out.println();
 	}
 }

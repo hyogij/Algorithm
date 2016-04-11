@@ -1,3 +1,5 @@
+package practice11;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,11 +24,31 @@ public class Solution {
 		System.out.println("isSubsetSum " + subsetSum(set, 6));
 		System.out.println("isSubsetSum " + subsetSum(set, 13));
 		System.out.println("isSubsetSum " + subsetSum(set, 19));
+		
+		List<List<String>> subsets = getSubSetSum(set, 19);
+		System.out.println("isSubsetSum " + subsets.toString());
 
 		List<List<Integer>> combinations = combine(4, 2);
 		System.out.println(combinations.toString());
 
 		System.out.println("findSubsets " + findSubsets(9, 9, 2));
+	}
+	
+	public static List<List<String>> getSubSetSum(int[] set, int target) {
+		List<List<String>> subsets = new ArrayList<List<String>>();
+		getSubSetSumHelper(set, 0, subsets, new ArrayList<String>(), target);
+		return subsets;
+	}
+
+	public static void getSubSetSumHelper(int[] set, int index, List<List<String>> subset,
+			ArrayList<String> list, int target) {
+		for (int i = index; i < set.length; i++) {
+			ArrayList<String> newList = new ArrayList<String>(list);
+			newList.add(String.valueOf(set[i]));
+			getSubSetSumHelper(set, i + 1, subset, newList, target - set[i]);
+		}
+		if (target == 0)
+			subset.add(list);
 	}
 
 	// https://leetcode.com/problems/combinations/
