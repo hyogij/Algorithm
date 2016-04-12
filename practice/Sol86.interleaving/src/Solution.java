@@ -27,6 +27,36 @@ public class Solution {
 		System.out.println("isInterleave "
 				+ isInterleave("aabc", "abad", "aabadabc"));
 	}
+	
+	public static boolean isInterleaveRecursive(String s1, String s2, String s3) {
+		return helper(s1, 0, s2, 0, s3, 0);
+	}
+
+	public static boolean helper(String s1, int index1, String s2, int index2,
+			String s3, int index3) {
+		if (index1 == s1.length() && index2 == s2.length()
+				&& index3 == s3.length()) {
+			return true;
+		}
+		if (index1 == s1.length()) {
+			if (s2.charAt(index2) == s3.charAt(index3))
+				return helper(s1, index1, s2, index2 + 1, s3, index3 + 1);
+			return false;
+		}
+		if (index2 == s2.length()) {
+			if (s1.charAt(index1) == s3.charAt(index3))
+				return helper(s1, index1 + 1, s2, index2, s3, index3 + 1);
+			return false;
+		}
+
+		boolean isInterleaved = false;
+		if (s1.charAt(index1) == s3.charAt(index3))
+			isInterleaved |= helper(s1, index1 + 1, s2, index2, s3, index3 + 1);
+		if (s2.charAt(index2) == s3.charAt(index3))
+			isInterleaved |= helper(s1, index1, s2, index2 + 1, s3, index3 + 1);
+
+		return isInterleaved;
+	}
 
 	public static boolean isInterleave(String s1, String s2, String s3) {
 		if(s1 == null || s2 == null || s3 == null)
