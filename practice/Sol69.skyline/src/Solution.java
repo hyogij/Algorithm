@@ -50,34 +50,92 @@ public class Solution {
 	 * in the final output as such: [...[2 3], [4 5], [12 7], ...]
 	 */
 	public static void main(String[] args) {
-		
-		// Difference with LinkedHashMap and HashMap
-		HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
-		map.put(5, 5);
-		map.put(1, 1);
-		map.put(2, 2);
-		System.out.println(map.toString());
-		map.put(3, 3);
-		map.put(4, 4);
-		System.out.println(map.toString());
-		map.put(2, 4);
-		System.out.println(map.toString());
-		
-		LinkedHashMap<Integer, Integer> linkedMap = new LinkedHashMap<Integer, Integer>();
-		linkedMap.put(5, 5);
-		linkedMap.put(1, 1);
-		linkedMap.put(2, 2);
-		System.out.println(linkedMap.toString());
-		linkedMap.put(3, 3);
-		linkedMap.put(4, 4);
-		System.out.println(linkedMap.toString());
-		linkedMap.put(2, 4);
-		System.out.println(linkedMap.toString());
+		int[][] buildings = {{2, 9, 10}, {3, 7, 15}, {5, 12, 12}, {15, 20, 10},
+				{19, 24, 8}};
+
+		List<int[]> list = getSkyline(buildings);
+		for (int i = 0; i < list.size(); i++)
+			System.out.println(Arrays.toString(list.get(i)));
 	}
 
-	public List<int[]> getSkyline(int[][] buildings) {
-		List<int[]> list = new ArrayList<int []>();
-		
+	public static class Edge implements Comparable<Edge> {
+		boolean isStart;
+		int x;
+		int height;
+
+		public Edge(int x, int height, boolean isStart) {
+			this.x = x;
+			this.height = height;
+			this.isStart = isStart;
+		}
+
+		@Override
+		public int compareTo(Edge o) {
+			// first compare by x.
+			// If they are same then use this logic
+			// if two starts are compared then higher height building should be
+			// picked first
+			// if two ends are compared then lower height building should be
+			// picked first
+			// if one start and end is compared then start should appear before
+			// end
+			if (this.x != o.x) {
+				return this.x - o.x;
+			} else {
+				return (this.isStart ? -this.height : this.height)
+						- (o.isStart ? -o.height : o.height);
+			}
+		}
+	}
+	public static List<int[]> getSkyline(int[][] buildings) {
+		List<int[]> list = new ArrayList<int[]>();
+		if (buildings.length == 0 || buildings[0].length == 0)
+			return list;
+
+		List<Edge> edges = new ArrayList<Edge>();
+		for (int i = 0; i < buildings.length; i++) {
+			int x = buildings[i][0];
+			int y = buildings[i][1];
+			int height = buildings[i][2];
+			edges.add(new Edge(x, height, true));
+			edges.add(new Edge(y, height, false));
+		}
+		Collections.sort(edges);
+
+		// Store (Max Height, Count) pair
+		TreeMap<Integer, Integer> map = new TreeMap<Integer, Integer>();
+		map.put(0, 1);
+
+		int prevMaxHeight = 0;
+		for (int i = 0; i < edges.size(); i++) {
+			Edge edge = edges.get(i);
+			if (edge.isStart) {
+				// Starting edge
+				if (map.containsKey(edge.height)) {
+					map.put(edge.height, map.get(edge.height) + 1);
+				} else {
+					map.put(edge.height, 1);
+				}
+			} else {
+				// Ending edge
+				int count = map.get(edge.height) - 1;
+				if (count == 0) {
+					map.remove(edge.height);
+				} else {
+					map.put(edge.height, count);
+				}
+			}
+
+			// Find the highest height from the map
+			int currentMaxHeight = map.lastKey();
+			
+			// If the highest height is changed, then print result
+			if (prevMaxHeight != currentMaxHeight) {
+				list.add(new int[]{edge.x, currentMaxHeight});
+				prevMaxHeight = currentMaxHeight;
+			}
+		}
+
 		return list;
 	}
 
