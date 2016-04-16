@@ -74,10 +74,11 @@ public class Solution {
 			max = map.get(s) + 1;
 		}
 
+		sum = 0;
 		for (int i = 0; i < nums.length; i++) {
-			sum = s + nums[i];
-			if (map.containsKey(sum)) {
-				int length = map.get(sum) - i;
+			sum += nums[i];
+			if (map.containsKey(sum - s)) {
+				int length = i - map.get(sum - s);
 				max = Math.max(length, max);
 			}
 		}
