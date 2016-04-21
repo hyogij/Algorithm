@@ -23,7 +23,32 @@ public class MinDepth {
 		root.right.left = new TreeNode(4);
 		root.right.right = new TreeNode(3);
 		root.right.left.right = new TreeNode(4);
-		System.out.println("minDepth " + minDepthAdvanced(root));
+		System.out.println("minDepthAdvanced " + minDepthAdvanced(root));
+		System.out.println("minDepth " + minDepth(root));
+		System.out.println("minDepthSimple " + minDepthSimple(root));
+	}
+
+	public static int minDepthSimple(TreeNode root) {
+		if (root == null) {
+			return 0;
+		}
+		int[] min = {Integer.MAX_VALUE};
+		helper(root, min, 1);
+		return min[0];
+	}
+
+	public static void helper(TreeNode root, int[] min, int height) {
+		if (root == null)
+			return;
+
+		if (root.left == null && root.right == null) {
+			if (height < min[0])
+				min[0] = height;
+			return;
+		}
+
+		helper(root.left, min, height + 1);
+		helper(root.right, min, height + 1);
 	}
 
 	public static int minDepth(TreeNode root) {
