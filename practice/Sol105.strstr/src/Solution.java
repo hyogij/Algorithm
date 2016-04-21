@@ -25,31 +25,33 @@ public class Solution {
 		System.out.println(Arrays.toString(makeNext(pattern4.toCharArray())));
 		String pattern5 = "AAACAAAAAC";
 		System.out.println(Arrays.toString(makeNext(pattern5.toCharArray())));
-		
-	     System.out.println("strStr " + strStr("abcxabcdabcdabcy1", "abcdabcy"));
-	     System.out.println("strStr " + strStrNaive("abcxabcdabcdabcy", "abcdabcy"));
-	     System.out.println("strStr " + strStr("hello world", "world"));
-	     System.out.println("strStr " + strStrNaive("hello world", "world"));
+
+		System.out.println("strStr " + strStrSolution("abcxabcdabcdabcy", "abcdabcy"));
+		System.out.println("strStrNaive " + strStrNaive("abcxabcdabcdabcy", "abcdabcy"));
+		System.out.println("strStr " + strstr("abcxabcdabcdabcy", "abcdabcy"));
+		System.out.println("strStr " + strStrSolution("hello world", "world"));
+		System.out.println("strStrNaive " + strStrNaive("hello world", "world"));
+		System.out.println("strStr " + strstr("hello world", "world"));
 	}
-	
+
 	// Naive solution's time complexity is O(n^2)
 	public static int strStrNaive(String text, String pattern) {
-		for(int i = 0; i < text.length() - pattern.length() + 1; i++) {
-			for(int j = 0; j < pattern.length(); j++) {
+		for (int i = 0; i < text.length() - pattern.length() + 1; i++) {
+			for (int j = 0; j < pattern.length(); j++) {
 				char c1 = text.charAt(i + j);
 				char c2 = pattern.charAt(j);
-				if(c1 != c2) {
+				if (c1 != c2) {
 					break;
 				}
 				// Reach to the last character of pattern
-				if(j == pattern.length() - 1)
+				if (j == pattern.length() - 1)
 					return i;
 			}
 		}
 		return -1;
 	}
 
-	public static int strStr(String haystack, String needle) {
+	public static int strStrSolution(String haystack, String needle) {
 		if (haystack == null || needle == null)
 			return -1;
 		if (haystack.length() < needle.length())
@@ -58,7 +60,7 @@ public class Solution {
 			return 0;
 		if (needle.length() == 0)
 			return 0;
-		
+
 		int i = 0, j = 0;
 		int next[] = makeNext(needle.toCharArray());
 		while (i < haystack.length()) {
@@ -78,6 +80,33 @@ public class Solution {
 			}
 		}
 
+		return -1;
+	}
+
+	public static int strstr(String txt, String pattern) {
+		if (txt == null || txt.length() == 0 || pattern == null || pattern.length() == 0)
+			return -1;
+		if (txt.length() < pattern.length())
+			return -1;
+
+		int[] next = makeNext(pattern.toCharArray());
+
+		int index = 0;
+		for (int i = 0; i < txt.length();) {
+			if (txt.charAt(i) == pattern.charAt(index)) {
+				index++;
+				i++;
+			} else {
+				if (index == 0) {
+					i++;
+				} else {
+					index = next[index - 1];
+				}
+			}
+
+			if (index == pattern.length())
+				return i - index;
+		}
 		return -1;
 	}
 

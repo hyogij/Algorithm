@@ -34,16 +34,16 @@ public class Solution {
 	public static void helper(String s, int index, List<List<String>> list,
 			List<String> sub) {
 		if (index == s.length()) {
-			list.add(sub);
+			list.add(new ArrayList<String>(sub));
 			return;
 		}
 
 		for (int i = index + 1; i <= s.length(); i++) {
 			String str = s.substring(index, i);
 			if (isPalindrome(str)) {
-				ArrayList<String> newSub = new ArrayList<String>(sub);
-				newSub.add(str);
-				helper(s, i, list, newSub);
+				sub.add(str);
+				helper(s, i, list, sub);
+				sub.remove(sub.size() - 1);
 			}
 		}
 	}

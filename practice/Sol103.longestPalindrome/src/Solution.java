@@ -34,9 +34,7 @@ public class Solution {
 					String sub = s.substring(i, row + 1);
 					if (sub.length() > longest.length()) {
 						longest = sub;
-					} else {
-						matrix[i][row] = false;
-					}
+					} 
 				}
 		}
 		return longest;
